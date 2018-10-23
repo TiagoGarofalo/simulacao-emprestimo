@@ -1,37 +1,30 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.InputMismatchException;
+
+import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 import model.bo.SimulacaoBO;
 import model.controller.SimulacaoController;
-
 import model.vo.Simulacao;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JSeparator;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.InputMismatchException;
-import java.awt.event.ActionEvent;
-
-public class Tela extends JFrame {
+public class TelaSimulacao extends JPanel {
 
 	private JPanel contentPane;
 	private JTextField txNome;
@@ -43,87 +36,83 @@ public class Tela extends JFrame {
 	private JLabel lbInserirValorParcela;
 	private JLabel lbInserirDtSimulacao;
 	private JLabel lbInserirDtValidade;
-	private JLabel lbPesquisarSimulao;
-	private JTextField txPesquisar;
 	Simulacao simula = new Simulacao();
 	SimulacaoBO bo = new SimulacaoBO();
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Tela frame = new Tela();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
-	public Tela() {
-		setTitle("Simulação de Empréstimos");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 350);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+	public TelaSimulacao() {
+		setLayout(null);
+		setBounds(30, 80, 587, 335);
+		//contentPane = new JPanel();
+		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		//contentPane.setLayout(null);
 
 		JLabel lbNome = new JLabel("Nome:");
-		lbNome.setBounds(8, 79, 46, 14);
-		contentPane.add(lbNome);
+		lbNome.setBounds(8, 69, 46, 14);
+		//contentPane.add(lbNome);
+		add(lbNome);
 
 		txNome = new JTextField();
-		txNome.setBounds(53, 76, 196, 20);
-		contentPane.add(txNome);
+		txNome.setBounds(53, 66, 196, 20);
+		//contentPane.add(txNome);
+		add(txNome);
 		txNome.setColumns(10);
 
 		JLabel lbEmail = new JLabel("E-mail:");
-		lbEmail.setBounds(263, 79, 46, 14);
-		contentPane.add(lbEmail);
+		lbEmail.setBounds(8, 126, 46, 14);
+		//contentPane.add(lbEmail);
+		add(lbEmail);
 
 		txEmail = new JTextField();
-		txEmail.setBounds(307, 76, 157, 20);
-		contentPane.add(txEmail);
+		txEmail.setBounds(52, 123, 197, 20);
+		//contentPane.add(txEmail);
+		add(txEmail);
 		txEmail.setColumns(10);
 
 		JLabel lbCpf = new JLabel("CPF:");
-		lbCpf.setBounds(8, 108, 46, 14);
-		contentPane.add(lbCpf);
+		lbCpf.setBounds(8, 98, 46, 14);
+		//contentPane.add(lbCpf);
+		add(lbCpf);
 
-		txCPF = new JTextField();
-		txCPF.setBounds(53, 106, 196, 20);
-		contentPane.add(txCPF);
+		try {
+			txCPF = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		txCPF.setBounds(53, 96, 196, 20);
+		//contentPane.add(txCPF);
+		add(txCPF);
 		txCPF.setColumns(10);
-
+		
 		JLabel lbValorCont = new JLabel("Valor Contrato:");
-		lbValorCont.setBounds(8, 138, 105, 14);
-		contentPane.add(lbValorCont);
+		lbValorCont.setBounds(8, 194, 105, 14);
+		//contentPane.add(lbValorCont);
+		add(lbValorCont);
 
 		txValorCont = new JTextField();
-		txValorCont.setBounds(119, 135, 130, 20);
-		contentPane.add(txValorCont);
+		txValorCont.setBounds(119, 191, 130, 20);
+		//contentPane.add(txValorCont);
+		add(txValorCont);
 		txValorCont.setColumns(10);
 
 		JLabel lbQtdDeParcelas = new JLabel("Qtd. de Parcelas:");
-		lbQtdDeParcelas.setBounds(8, 169, 100, 14);
-		contentPane.add(lbQtdDeParcelas);
+		lbQtdDeParcelas.setBounds(8, 225, 100, 14);
+		//contentPane.add(lbQtdDeParcelas);
+		add(lbQtdDeParcelas);
 
 		txParcelas = new JTextField();
-		txParcelas.setBounds(119, 166, 130, 20);
-		contentPane.add(txParcelas);
+		txParcelas.setBounds(119, 222, 130, 20);
+		//contentPane.add(txParcelas);
+		add(txParcelas);
 		txParcelas.setColumns(10);
 
 		lbInserirNumCont = new JLabel("N\u00B0 Contrato: ");
 		lbInserirNumCont.setBounds(8, 11, 179, 14);
-		contentPane.add(lbInserirNumCont);
+		//contentPane.add(lbInserirNumCont);
+		add(lbInserirNumCont);
 
 		Date numCont = new Date();
 		SimpleDateFormat formatNum = new SimpleDateFormat("yyyyMMdd");
@@ -131,13 +120,15 @@ public class Tela extends JFrame {
         String.format("%05d", acumulador);
 		lbInserirNumCont.setText("N° Contrato: " + formatNum.format(numCont) + String.format("%06d", criaNumContrato(acumulador)));
 
-		lbInserirValorParcela = new JLabel("Vlr. Parcela: R$ ");
-		lbInserirValorParcela.setBounds(409, 169, 164, 14);
-		contentPane.add(lbInserirValorParcela);
+		lbInserirValorParcela = new JLabel("Vlr. Parcela: ");
+		lbInserirValorParcela.setBounds(8, 266, 164, 14);
+		//contentPane.add(lbInserirValorParcela);
+		add(lbInserirValorParcela);
 
 		lbInserirDtSimulacao = new JLabel("Data Simula\u00E7\u00E3o: ");
 		lbInserirDtSimulacao.setBounds(208, 11, 172, 14);
-		contentPane.add(lbInserirDtSimulacao);
+		//contentPane.add(lbInserirDtSimulacao);
+		add(lbInserirDtSimulacao);
 
 		Date dataSimulacao = new Date();
 		SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yy");
@@ -145,7 +136,8 @@ public class Tela extends JFrame {
 
 		lbInserirDtValidade = new JLabel("Validade Simula\u00E7\u00E3o: ");
 		lbInserirDtValidade.setBounds(395, 11, 178, 14);
-		contentPane.add(lbInserirDtValidade);
+		//contentPane.add(lbInserirDtValidade);
+		add(lbInserirDtValidade);
 
 		SimpleDateFormat formatValidade = new SimpleDateFormat("dd/MM/yy");
 		GregorianCalendar dataValidade = new GregorianCalendar();
@@ -153,22 +145,15 @@ public class Tela extends JFrame {
 		Date dataV = dataValidade.getTime();
 		lbInserirDtValidade.setText("Validade simulação: " + formatValidade.format(dataV));
 
-		lbPesquisarSimulao = new JLabel("Pesquisar Simula\u00E7\u00E3o:");
-		lbPesquisarSimulao.setBounds(8, 50, 130, 14);
-		contentPane.add(lbPesquisarSimulao);
-
-		txPesquisar = new JTextField();
-		txPesquisar.setBounds(142, 46, 107, 20);
-		contentPane.add(txPesquisar);
-		txPesquisar.setColumns(10);
-
 		JSeparator separator = new JSeparator();
 		separator.setBounds(8, 33, 566, 2);
-		contentPane.add(separator);
+		//contentPane.add(separator);
+		add(separator);
 
 		JLabel lbInserirJuros = new JLabel("Tx. de juros:");
-		lbInserirJuros.setBounds(263, 169, 136, 14);
-		contentPane.add(lbInserirJuros);
+		lbInserirJuros.setBounds(7, 245, 136, 14);
+		//contentPane.add(lbInserirJuros);
+		add(lbInserirJuros);
 
 		JButton btSimular = new JButton("Simular");
 		btSimular.addMouseListener(new MouseAdapter() {
@@ -196,16 +181,24 @@ public class Tela extends JFrame {
 			}
 
 		});
-		btSimular.setBounds(160, 197, 89, 23);
-		contentPane.add(btSimular);
-
-		JButton btPesquisar = new JButton("Buscar");
-		btPesquisar.setBounds(258, 45, 89, 23);
-		contentPane.add(btPesquisar);
-
-		JButton btContratar = new JButton("Contratar");
-		btContratar.setBounds(160, 231, 89, 23);
-		contentPane.add(btContratar);
+		btSimular.setBounds(158, 287, 89, 23);
+		//contentPane.add(btSimular);
+		add(btSimular);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(8, 159, 565, 2);
+		//contentPane.add(separator_1);
+		add(separator_1);
+		
+		JLabel lblNewLabel = new JLabel("Dados usu\u00E1rio:");
+		lblNewLabel.setBounds(8, 40, 105, 14);
+		//contentPane.add(lblNewLabel);
+		add(lblNewLabel);
+		
+		JLabel lblDadosEmprstimo = new JLabel("Dados Empr\u00E9stimo:");
+		lblDadosEmprstimo.setBounds(8, 166, 150, 16);
+		//contentPane.add(lblDadosEmprstimo);
+		add(lblDadosEmprstimo);
 
 	}
 
@@ -288,7 +281,7 @@ public class Tela extends JFrame {
 		if (cpf.equals("00000000000") || cpf.equals("11111111111") || cpf.equals("22222222222")
 				|| cpf.equals("33333333333") || cpf.equals("44444444444") || cpf.equals("55555555555")
 				|| cpf.equals("66666666666") || cpf.equals("77777777777") || cpf.equals("88888888888")
-				|| cpf.equals("99999999999") || (cpf.length() != 11))
+				|| cpf.equals("99999999999") || (cpf.length() != 14))
 			return false;
 
 		char dig10, dig11;
@@ -339,5 +332,4 @@ public class Tela extends JFrame {
 		return acumulador;	
 		
 	}
-
 }

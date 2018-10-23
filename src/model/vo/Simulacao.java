@@ -2,56 +2,108 @@ package model.vo;
 
 public class Simulacao {
 	
-	private int id; //auto-incremento
-	private String nome;
-	private String email;
+	private int ids_simulacao; //auto-incremento
 	private String cpf;
-	private double valorContrato;
-	private int numParcela;
-			
-	public Simulacao(String nome, String email, String cpf, double valorContrato, int numParcela) {
+	private String emprestimo;
+	private double dataInicio;
+	private int dataFinal;
+	private int txjuros;
+	private int qntParcelas;
+	private int valorJuros;
+	private int valorTotalEmprestimo;
+	
+	public Simulacao(int ids_simulacao, String cpf, String emprestimo, double dataInicio, int dataFinal, int txjuros,
+			int qntParcelas, int valorJuros, int valorTotalEmprestimo) {
 		super();
-		this.nome = nome;
-		this.email = email;
+		this.ids_simulacao = ids_simulacao;
 		this.cpf = cpf;
-		this.valorContrato = valorContrato;
-		this.numParcela = numParcela;
-	}
-		
-	public Simulacao() {
-		super();
+		this.emprestimo = emprestimo;
+		this.dataInicio = dataInicio;
+		this.dataFinal = dataFinal;
+		this.txjuros = txjuros;
+		this.qntParcelas = qntParcelas;
+		this.valorJuros = valorJuros;
+		this.valorTotalEmprestimo = valorTotalEmprestimo;
 	}
 
-	public String getNome() {
-		return nome;
+	
+
+	public int getIds_simulacao() {
+		return ids_simulacao;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+
+
+
+	public void setIds_simulacao(int ids_simulacao) {
+		this.ids_simulacao = ids_simulacao;
 	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
+
 	public String getCpf() {
 		return cpf;
 	}
+
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	public double getValorContrato() {
-		return valorContrato;
+
+	public String getEmprestimo() {
+		return emprestimo;
 	}
-	public void setValorContrato(double valorContrato) {
-		this.valorContrato = valorContrato;
+
+	public void setEmprestimo(String emprestimo) {
+		this.emprestimo = emprestimo;
 	}
-	public int getNumParcela() {
-		return numParcela;
+
+	public double getDataInicio() {
+		return dataInicio;
 	}
-	public void setNumParcela(int numParcela) {
-		this.numParcela = numParcela;
+
+	public void setDataInicio(double dataInicio) {
+		this.dataInicio = dataInicio;
 	}
+
+	public int getDataFinal() {
+		return dataFinal;
+	}
+
+	public void setDataFinal(int dataFinal) {
+		this.dataFinal = dataFinal;
+	}
+
+	public int getTxjuros() {
+		return txjuros;
+	}
+
+	public void setTxjuros(int txjuros) {
+		this.txjuros = txjuros;
+	}
+
+	public int getQntParcelas() {
+		return qntParcelas;
+	}
+
+	public void setQntParcelas(int qntParcelas) {
+		this.qntParcelas = qntParcelas;
+	}
+
+	public int getValorJuros() {
+		return valorJuros;
+	}
+
+	public void setValorJuros(int valorJuros) {
+		this.valorJuros = valorJuros;
+	}
+
+	public int getValorTotalEmprestimo() {
+		return valorTotalEmprestimo;
+	}
+
+	public void setValorTotalEmprestimo(int valorTotalEmprestimo) {
+		this.valorTotalEmprestimo = valorTotalEmprestimo;
+	}
+
+
+	
 		
 	
 }
