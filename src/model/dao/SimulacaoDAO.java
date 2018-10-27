@@ -1,46 +1,40 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import model.Banco;
-import model.vo.Aluno;
 import model.vo.Simulacao;
 
 public class SimulacaoDAO {
 	
 	/**
 	 * 
-	 * @param a o novo aluno a ser salvo
+	 * @param s o novo aluno a ser salvo
 	 * @return id caso positivo, é a chave gerada pelo SGBD
 	 * 			  caso -1, houve erro no INSERT
 	 */
-	public int inserir(Simulacao a){
+	public int inserir(Simulacao s){
 		int novoId = -1;
 		//
 
-		String sql = " INSERT INTO SIMULACAO (ID_SIMULACAO, CPF, ID_EMPRESTIMO, DATAINICIO,DATAFINAL, TXJUROS, QNTPARCELAS,VALORJUROS,VALOREMPRESTIMO) "
-				+ " VALUES (?,?,?,?,?,?,?,?,?) ";
+		String sql = " INSERT INTO SIMULACAO (NOME, EMAIL, CPF, DTSIMULACAO,VALORCONT, NUMPARCELA, NUNCONT,VALORPARCELA,,DTVALIDADE) "
+				+ " VALUES (?,?,?,?,?,?,?,?,?,?) ";
 
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql, 
 				java.sql.Statement.RETURN_GENERATED_KEYS);
 
 		try {
-			prepStmt.setInt(1, a.getIds_simulacao());
-			prepStmt.setString(2, a.getCpf());
-			prepStmt.setString(3, a.getEmprestimo());
-			prepStmt.setDouble(4, a.getDataInicio());
-			prepStmt.setInt(5, a.getDataFinal());
-			prepStmt.setInt(6, a.getTxjuros());
-			prepStmt.setInt(7, a.getQntParcelas());
-			prepStmt.setInt(8, a.getValorJuros());
-			prepStmt.setInt(9, a.getValorTotalEmprestimo());
+			prepStmt.setString(1, s.getNome());
+			prepStmt.setString(2, s.getEmail());
+			prepStmt.setString(3, s.getCpf());
+			prepStmt.setDate(4, (Date) s.getDtsimulacao());
+			//TODO preencher o restante
 			
-
 			prepStmt.execute();
 
 			ResultSet generatedKeys = prepStmt.getGeneratedKeys();
@@ -60,9 +54,8 @@ public class SimulacaoDAO {
 	public boolean atualizar(Simulacao a){
 		boolean sucessoUpdate = false;
 
-		String sql = " UPDATE SIMULACAO P SET NOME=?, SOBRENOME=?, MATRICULA=?, NOTA_P1=?, NOTA_P2=?"
-				+ "NOTA_T1=?, NOTA_T2=?, PESO_PROVAS=?, PESO_TRABALHOS=?, NIVEL=?, SITUACAO=?, NOTA_FINAL=? "
-				+ " WHERE P.ID = ? ";
+		String sql = " UPDATE SIMULACAO P SET ID_SIMULACAO=?, CPF=?, ID_EMPRESTIMO=?, DATAINICIO=?, DATAFINAL=?,TXJUROS=?,QTPARCELAS=?,VALORJUROS=?,VALOREMPRESTIMO=?"
+				         + " WHERE P.ID = ? ";
 
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
@@ -97,7 +90,7 @@ public class SimulacaoDAO {
 	public boolean remover(int id){
 		boolean sucessoDelete = false;
 
-		String sql = " DELETE FROM ALUNO "
+		String sql = " DELETE FROM SIMULACAO "
 				+ " WHERE ID = ? ";
 
 		Connection conexao = Banco.getConnection();
@@ -117,24 +110,24 @@ public class SimulacaoDAO {
 		return sucessoDelete;
 	}
 	
-	public ArrayList<Aluno> listarTodos(){
-		String sql = " SELECT * FROM ALUNO ";
+	/*public ArrayList<Simulacao> listarTodos(){
+		String sql = " SELECT * FROM SIMULACAO ";
 		
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
-		ArrayList<Aluno> alunos = new ArrayList<Aluno>();
+		ArrayList<Simulacao> alunos = new ArrayList<Simulacao>();
 		
 		try {
 			ResultSet result = prepStmt.executeQuery();
 			
 			while(result.next()){
-				Aluno aluno = new Aluno();
+				Simulacao simulacao = new  Simulacao();
 				
-				aluno.setId(result.getInt("ID"));
-				aluno.setNome(result.getString("NOME"));
-				aluno.setMatricula(result.getString("MATRICULA"));
-				aluno.setNotaProva1(result.getDouble("NOTA_P1"));
-				aluno.setNotaProva2(result.getDouble("NOTA_P2"));
+				simulacao.setId(result.getInt("ID"));
+				simulacao.setNome(result.getString("CPF"));
+				simulacao.setMatricula(result.getString("EMPRESTIMO"));
+				simulacao.setNotaProva1(result.getDouble("NOTA_P1"));
+				simulacao.setNotaProva2(result.getDouble("NOTA_P2"));
 				
 				alunos.add(aluno);
 			}
@@ -142,7 +135,7 @@ public class SimulacaoDAO {
 			System.out.println("Erro listar todos os alunos. Causa: \n:" + e.getCause());
 		}
 		return alunos;
-	}
+	}*/
 	/**
 	 * Retorna um produto dado um id.
 	 * 
@@ -150,7 +143,7 @@ public class SimulacaoDAO {
 	 * @return um produto caso o id exista na tabela Produto
 	 * 		   null caso contrário
 	 */
-	public Aluno obterPorId(int id){
+	/*public Aluno obterPorId(int id){
 		String sql = " SELECT * FROM ALUNO "
 				+ " WHERE ID=?";
 		
@@ -175,5 +168,5 @@ public class SimulacaoDAO {
 			System.out.println("Erro buscar um aluno. Causa: \n:" + e.getCause());
 		}
 		return aluno;
-	}
+	}*/
 }

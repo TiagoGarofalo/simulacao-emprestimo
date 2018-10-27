@@ -1,41 +1,52 @@
 package model.vo;
 
+import java.util.Date;
+
 public class Simulacao {
-	
-	private int ids_simulacao; //auto-incremento
+
+	private String nome;
+	private String email;
 	private String cpf;
-	private String emprestimo;
-	private double dataInicio;
-	private int dataFinal;
-	private int txjuros;
-	private int qntParcelas;
-	private int valorJuros;
-	private int valorTotalEmprestimo;
-	
-	public Simulacao(int ids_simulacao, String cpf, String emprestimo, double dataInicio, int dataFinal, int txjuros,
-			int qntParcelas, int valorJuros, int valorTotalEmprestimo) {
+	private double valorCont;
+	private double numParcela;
+	private Long numCont;
+	private double valorParcela;
+	private Date dtsimulacao;
+	private Date dtValidade;
+
+	public Simulacao(String nome, String email, String cpf, double valorCont, double numParcela, Long numCont,
+			double valorParcela, Date dtsimulacao, Date dtValidade) {
 		super();
-		this.ids_simulacao = ids_simulacao;
+		this.nome = nome;
+		this.email = email;
 		this.cpf = cpf;
-		this.emprestimo = emprestimo;
-		this.dataInicio = dataInicio;
-		this.dataFinal = dataFinal;
-		this.txjuros = txjuros;
-		this.qntParcelas = qntParcelas;
-		this.valorJuros = valorJuros;
-		this.valorTotalEmprestimo = valorTotalEmprestimo;
+		this.valorCont = valorCont;
+		this.numParcela = numParcela;
+		this.numCont = numCont;
+		this.valorParcela = valorParcela;
+		this.dtsimulacao = dtsimulacao;
+		this.dtValidade = dtValidade;
 	}
 
-	
-
-	public int getIds_simulacao() {
-		return ids_simulacao;
+	public Simulacao() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
+	public String getNome() {
+		return nome;
+	}
 
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-	public void setIds_simulacao(int ids_simulacao) {
-		this.ids_simulacao = ids_simulacao;
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getCpf() {
@@ -46,64 +57,52 @@ public class Simulacao {
 		this.cpf = cpf;
 	}
 
-	public String getEmprestimo() {
-		return emprestimo;
+	public double getValorCont() {
+		return valorCont;
 	}
 
-	public void setEmprestimo(String emprestimo) {
-		this.emprestimo = emprestimo;
+	public void setValorCont(double valorCont) {
+		this.valorCont = valorCont;
 	}
 
-	public double getDataInicio() {
-		return dataInicio;
+	public double getNumParcela() {
+		return numParcela;
 	}
 
-	public void setDataInicio(double dataInicio) {
-		this.dataInicio = dataInicio;
+	public void setNumParcela(double numParcela) {
+		this.numParcela = numParcela;
 	}
 
-	public int getDataFinal() {
-		return dataFinal;
+	public Long getNumCont() {
+		return numCont;
 	}
 
-	public void setDataFinal(int dataFinal) {
-		this.dataFinal = dataFinal;
+	public void setNumCont(Long numCont) {
+		this.numCont = numCont;
 	}
 
-	public int getTxjuros() {
-		return txjuros;
+	public double getValorParcela() {
+		return valorParcela;
 	}
 
-	public void setTxjuros(int txjuros) {
-		this.txjuros = txjuros;
+	public void setValorParcela(double valorParcela) {
+		this.valorParcela = valorParcela;
 	}
 
-	public int getQntParcelas() {
-		return qntParcelas;
+	public Date getDtsimulacao() {
+		return dtsimulacao;
 	}
 
-	public void setQntParcelas(int qntParcelas) {
-		this.qntParcelas = qntParcelas;
+	public void setDtsimulacao(Date dtsimulacao) {
+		this.dtsimulacao = dtsimulacao;
 	}
 
-	public int getValorJuros() {
-		return valorJuros;
+	public Date getDtValidade() {
+		return dtValidade;
 	}
 
-	public void setValorJuros(int valorJuros) {
-		this.valorJuros = valorJuros;
+	public void setDtValidade(Date dtValidade) {
+		this.dtValidade = dtValidade;
 	}
 
-	public int getValorTotalEmprestimo() {
-		return valorTotalEmprestimo;
-	}
-
-	public void setValorTotalEmprestimo(int valorTotalEmprestimo) {
-		this.valorTotalEmprestimo = valorTotalEmprestimo;
-	}
-
-
-	
-		
-	
 }

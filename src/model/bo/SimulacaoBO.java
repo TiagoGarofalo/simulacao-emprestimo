@@ -8,7 +8,7 @@ public class SimulacaoBO {
 		double juros = 0;
 		double jurosP = 0;
 		double jurosV = 0;
-		if (simula.getValorContrato() <= 1000) {
+		if (simula.getValorCont() <= 1000) {
 			jurosV = 1.8;
 		} else {
 			jurosV = 3;}
@@ -27,7 +27,7 @@ public class SimulacaoBO {
 		double juros = 0;
 		double jurosP = 0;
 		double jurosV = 0;
-		if (simula.getValorContrato() <= 1000) {
+		if (simula.getValorCont() <= 1000) {
 			jurosV = 1.8;
 		} else {
 			jurosV = 3;}
@@ -39,7 +39,7 @@ public class SimulacaoBO {
 
 		juros = jurosV + jurosP;
 		
-		double valorP = (simula.getValorContrato() * (1+(simula.getNumParcela()*(juros/100))))/simula.getNumParcela();
+		double valorP = (simula.getValorCont() * (1+(simula.getNumParcela()*(juros/100))))/simula.getNumParcela();
 		
 		return valorP;
 	}

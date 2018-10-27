@@ -270,7 +270,7 @@ public class TelaSimulacao extends JPanel {
 		novaSimula.setNome(txNome.getText());
 		novaSimula.setEmail(txEmail.getText());
 		novaSimula.setCpf(txCPF.getText());
-		novaSimula.setValorContrato(Double.parseDouble(txValorCont.getText()));
+		novaSimula.setValorCont(Double.parseDouble(txValorCont.getText()));
 		novaSimula.setNumParcela(Integer.parseInt(txParcelas.getText()));
 
 		return novaSimula;

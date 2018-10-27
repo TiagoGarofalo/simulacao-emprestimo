@@ -36,7 +36,7 @@ public class Banco {
 			conn = DriverManager.getConnection(URL_CONEXAO, USUARIO, SENHA);
 			return conn;
 		} catch (ClassNotFoundException e) {
-			System.out.println("Classe do Driver n√£o foi encontrada. \n" + e.getMessage());
+			System.out.println("Classe do Driver n„o foi encontrada. \n" + e.getMessage());
 			return null;
 		} catch (SQLException e) {
 			System.out.println("Erro ao obter a Connection.\n" + e.getMessage());
