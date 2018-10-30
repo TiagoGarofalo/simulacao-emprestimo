@@ -12,17 +12,17 @@ import model.vo.Simulacao;
 public class SimulacaoDAO {
 	
 	/**
-	 * 
-	 * @param s o novo aluno a ser salvo
-	 * @return id caso positivo, é a chave gerada pelo SGBD
-	 * 			  caso -1, houve erro no INSERT
-	 */
+	* 
+	* @param s o novo aluno a ser salvo
+	* @return id caso positivo, é a chave gerada pelo SGBD
+	* 			  caso -1, houve erro no INSERT
+	*/
 	public int inserir(Simulacao s){
 		int novoId = -1;
 		//
 
-		String sql = " INSERT INTO SIMULACAO (NOME, EMAIL, CPF, DTSIMULACAO,VALORCONT, NUMPARCELA, NUNCONT,VALORPARCELA,,DTVALIDADE) "
-				+ " VALUES (?,?,?,?,?,?,?,?,?,?) ";
+		String sql = " INSERT INTO SIMULACAO (NOME, EMAIL, CPF, DTSIMULACAO,VALORCONT, NUMPARCELA, NUNCONT,VALORPARCELA,DTVALIDADE) "
+				+ " VALUES (?,?,?,?,?,?,?,?,?) ";
 
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql, 
@@ -31,8 +31,13 @@ public class SimulacaoDAO {
 		try {
 			prepStmt.setString(1, s.getNome());
 			prepStmt.setString(2, s.getEmail());
-			prepStmt.setString(3, s.getCpf());
+			prepStmt.setString(3, s.getCpf());		
 			prepStmt.setDate(4, (Date) s.getDtsimulacao());
+			prepStmt.setDouble(5, s.getValorCont());
+			prepStmt.setDouble(6, s.getNumParcela());
+			prepStmt.setLong(7, s.getNumCont());
+			prepStmt.setDouble(8, s.getValorParcela());
+			prepStmt.setDate(9, (Date) s.getDtValidade());
 			//TODO preencher o restante
 			
 			prepStmt.execute();
@@ -54,23 +59,23 @@ public class SimulacaoDAO {
 	public boolean atualizar(Simulacao a){
 		boolean sucessoUpdate = false;
 
-		String sql = " UPDATE SIMULACAO P SET ID_SIMULACAO=?, CPF=?, ID_EMPRESTIMO=?, DATAINICIO=?, DATAFINAL=?,TXJUROS=?,QTPARCELAS=?,VALORJUROS=?,VALOREMPRESTIMO=?"
+		String sql = " UPDATE SIMULACAO P SET ID_SIMULACAO=?,EMAIL=?, CPF=?, DTSIMULACAO=?,VALORCONT=?, NUMPARCELA=?, NUNCONT=?,VALORPARCELA=?,DTVALIDADE=? "
 				         + " WHERE P.ID = ? ";
 
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
 
 		try {
-			prepStmt.setInt(1, a.getIds_simulacao());
-			prepStmt.setString(2, a.getCpf());
-			prepStmt.setString(3, a.getEmprestimo());
-			prepStmt.setDouble(4, a.getDataInicio());
-			prepStmt.setInt(5, a.getDataFinal());
-			prepStmt.setInt(6, a.getTxjuros());
-			prepStmt.setInt(7, a.getQntParcelas());
-			prepStmt.setInt(8, a.getValorJuros());
-			prepStmt.setInt(9, a.getValorTotalEmprestimo());
-
+			prepStmt.setString(1, a.getNome());
+			prepStmt.setString(2, a.getEmail());
+			prepStmt.setString(3, a.getCpf());		
+			prepStmt.setDate(4, (Date) a.getDtsimulacao());
+			prepStmt.setDouble(5, a.getValorCont());
+			prepStmt.setDouble(6, a.getNumParcela());
+			prepStmt.setLong(7, a.getNumCont());
+			prepStmt.setDouble(8, a.getValorParcela());
+			prepStmt.setDate(9, (Date) a.getDtValidade());
+			
 			int codigoRetorno = prepStmt.executeUpdate();
 
 			if(codigoRetorno == 1){
@@ -137,12 +142,12 @@ public class SimulacaoDAO {
 		return alunos;
 	}*/
 	/**
-	 * Retorna um produto dado um id.
-	 * 
-	 * @param id o identificador do produto
-	 * @return um produto caso o id exista na tabela Produto
-	 * 		   null caso contrário
-	 */
+	* Retorna um produto dado um id.
+	* 
+	* @param id o identificador do produto
+	* @return um produto caso o id exista na tabela Produto
+	* 		   null caso contrário
+	*/
 	/*public Aluno obterPorId(int id){
 		String sql = " SELECT * FROM ALUNO "
 				+ " WHERE ID=?";

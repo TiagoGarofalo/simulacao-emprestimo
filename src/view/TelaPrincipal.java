@@ -1,19 +1,17 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.ImageIcon;
-import javax.swing.KeyStroke;
-import java.awt.event.KeyEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 public class TelaPrincipal extends JFrame {
 
@@ -40,6 +38,9 @@ public class TelaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaPrincipal() {
+		
+		
+		
 		setTitle("Simulação de Empréstimos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -75,6 +76,28 @@ public class TelaPrincipal extends JFrame {
 		mntmPesquisar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/lupa.png")));
 		mntmPesquisar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0));
 		mnEmprestimo.add(mntmPesquisar);
+		
+		JMenu mnCadastrarVendedor = new JMenu("Cadastrar Vendedor");
+		mnCadastrarVendedor.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-adicionar-usu\u00E1rio-masculino.png")));
+		menuBar.add(mnCadastrarVendedor);
+		
+		JMenuItem mntmCadastrarVendedor = new JMenuItem("Cadastrar Vendedor");
+		mntmCadastrarVendedor.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0));
+		mntmCadastrarVendedor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaCadastroVendedor vendedor = new TelaCadastroVendedor();
+				setContentPane(vendedor);
+				vendedor.updateUI();
+			}
+		});
+		
+		/*if (VendedorDAO.getid == "1" && VendedorDAO.online() == 0) {
+			 TelaPrincipal telaPrincipal = new TelaPrincipal();
+			 mnCadastrarVendedor.setVisible(true);
+			};*/
+	
+		mntmCadastrarVendedor.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-adicionar-ao-banco-de-dados.png")));
+		mnCadastrarVendedor.add(mntmCadastrarVendedor);
 		
 		JMenu mnSobre = new JMenu("sobre");
 		mnSobre.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-card\u00E1pio.png")));
