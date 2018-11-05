@@ -29,6 +29,7 @@ public class TelaLogin extends JFrame {
 			public void run() {
 				try {
 					TelaLogin frame = new TelaLogin();
+					//frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -71,6 +72,7 @@ public class TelaLogin extends JFrame {
 				
 				if (txtLogin.getText().equals("admin")&&txtsenha.getText().equals("admin")) {
 					 TelaPrincipal inicio = new TelaPrincipal();
+						inicio.setExtendedState(JFrame.MAXIMIZED_BOTH);
 						
 						inicio.setVisible(true);
 						dispose();

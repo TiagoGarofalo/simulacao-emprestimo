@@ -67,12 +67,16 @@ public class TelaPrincipal extends JFrame {
 		mntmSimular.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-confian\u00E7a.png")));
 		mnEmprestimo.add(mntmSimular);
 		
-		JMenuItem mntmContratar = new JMenuItem("Contratar");
-		mntmContratar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
-		mntmContratar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-comprar.png")));
-		mnEmprestimo.add(mntmContratar);
-		
 		JMenuItem mntmPesquisar = new JMenuItem("Pesquisar");
+		mntmPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				TelaListaSimulacao lista = new TelaListaSimulacao();
+				setContentPane(lista);
+				lista.updateUI();
+				
+			}
+		});
 		mntmPesquisar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/lupa.png")));
 		mntmPesquisar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0));
 		mnEmprestimo.add(mntmPesquisar);

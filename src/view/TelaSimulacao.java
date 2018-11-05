@@ -182,7 +182,7 @@ public class TelaSimulacao extends JPanel {
 			}
 
 		});
-		btSimular.setBounds(158, 287, 89, 23);
+		btSimular.setBounds(82, 286, 89, 23);
 		//contentPane.add(btSimular);
 		add(btSimular);
 		
@@ -200,6 +200,10 @@ public class TelaSimulacao extends JPanel {
 		lblDadosEmprstimo.setBounds(8, 166, 150, 16);
 		//contentPane.add(lblDadosEmprstimo);
 		add(lblDadosEmprstimo);
+		
+		JButton btnGravar = new JButton("Gravar");
+		btnGravar.setBounds(179, 286, 90, 23);
+		add(btnGravar);
 
 	}
 
