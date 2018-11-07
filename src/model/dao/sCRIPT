@@ -36,7 +36,6 @@ ID_SIMULACAO INT NOT NULL primary key
 ,VALORTOTALEMPRESTIMO INT (12)
 ,constraint fk_cliente foreign key(ID_CLIENTE)references CLIENTE(CPF)
 ,constraint fk_vendedor foreign key(ID_VENDEDOR)references VENDEDOR(ID_VENDEDOR)
-,constraint fk_contrato foreign key(ID_contrato)references contrato(ID_contrato)
 );
 
 drop table simulacao;
