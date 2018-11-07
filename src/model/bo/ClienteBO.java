@@ -7,7 +7,7 @@ public class ClienteBO {
 
 public  ClienteVO salvarCliente(ClienteVO cliente) {
 		
-		return ClienteDAO.inserirCliente(cliente);
+		return ClienteDAO.inserirCliente(cliente)
 	}
 	
 	
