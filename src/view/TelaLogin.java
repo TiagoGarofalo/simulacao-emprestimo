@@ -29,7 +29,7 @@ public class TelaLogin extends JFrame {
 			public void run() {
 				try {
 					TelaLogin frame = new TelaLogin();
-					//frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+					// frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,41 +48,38 @@ public class TelaLogin extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblLogin = new JLabel("Login");
 		lblLogin.setBounds(10, 11, 46, 14);
 		contentPane.add(lblLogin);
-		
+
 		JLabel lblSenha = new JLabel("Senha");
 		lblSenha.setBounds(10, 53, 46, 14);
 		contentPane.add(lblSenha);
-		
+
 		txtLogin = new JTextField();
 		txtLogin.setBounds(10, 28, 167, 20);
 		contentPane.add(txtLogin);
 		txtLogin.setColumns(10);
-		
+
 		txtsenha = new JPasswordField();
 		txtsenha.setBounds(10, 70, 167, 20);
 		contentPane.add(txtsenha);
-		
+
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				if (txtLogin.getText().equals("admin")&&txtsenha.getText().equals("admin")) {
-					 TelaPrincipal inicio = new TelaPrincipal();
-						inicio.setExtendedState(JFrame.MAXIMIZED_BOTH);
-						
-						inicio.setVisible(true);
-						dispose();
+
+				if (txtLogin.getText().equals("admin") && txtsenha.getText().equals("admin")) {
+					TelaPrincipal inicio = new TelaPrincipal();
+					inicio.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+					inicio.setVisible(true);
+					dispose();
 				} else {
 					JOptionPane.showMessageDialog(rootPane, "senha ou usuario invalidos");
 				}
-				
-			
-				 
-								
+
 			}
 		});
 		btnLogin.setBounds(88, 101, 89, 23);

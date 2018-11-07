@@ -38,53 +38,52 @@ public class TelaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaPrincipal() {
-		
-		
-		
+
 		setTitle("Simulação de Empréstimos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
+
 		JMenu mnEmprestimo = new JMenu("Empr\u00E9stimo");
 		mnEmprestimo.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-documento-regular.png")));
 		menuBar.add(mnEmprestimo);
-		
+
 		JMenuItem mntmSimular = new JMenuItem("Simular");
 		mntmSimular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//Instanciar a tela de simulação
+				// Instanciar a tela de simulação
 				TelaSimulacao tela = new TelaSimulacao();
-				//PainelTeste tela = new PainelTeste();
-				
-				//Adicionar o painel na tela principal
+				// PainelTeste tela = new PainelTeste();
+
+				// Adicionar o painel na tela principal
 				setContentPane(tela);
 			}
 		});
 		mntmSimular.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
 		mntmSimular.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-confian\u00E7a.png")));
 		mnEmprestimo.add(mntmSimular);
-		
+
 		JMenuItem mntmPesquisar = new JMenuItem("Pesquisar");
 		mntmPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				TelaListaSimulacao lista = new TelaListaSimulacao();
 				setContentPane(lista);
 				lista.updateUI();
-				
+
 			}
 		});
 		mntmPesquisar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/lupa.png")));
 		mntmPesquisar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0));
 		mnEmprestimo.add(mntmPesquisar);
-		
+
 		JMenu mnCadastrarVendedor = new JMenu("Cadastrar Vendedor");
-		mnCadastrarVendedor.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-adicionar-usu\u00E1rio-masculino.png")));
+		mnCadastrarVendedor.setIcon(
+				new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-adicionar-usu\u00E1rio-masculino.png")));
 		menuBar.add(mnCadastrarVendedor);
-		
+
 		JMenuItem mntmCadastrarVendedor = new JMenuItem("Cadastrar Vendedor");
 		mntmCadastrarVendedor.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0));
 		mntmCadastrarVendedor.addActionListener(new ActionListener() {
@@ -94,19 +93,20 @@ public class TelaPrincipal extends JFrame {
 				vendedor.updateUI();
 			}
 		});
-		
-		/*if (VendedorDAO.getid == "1" && VendedorDAO.online() == 0) {
-			 TelaPrincipal telaPrincipal = new TelaPrincipal();
-			 mnCadastrarVendedor.setVisible(true);
-			};*/
-	
-		mntmCadastrarVendedor.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-adicionar-ao-banco-de-dados.png")));
+
+		/*
+		 * if (VendedorDAO.getid == "1" && VendedorDAO.online() == 0) { TelaPrincipal
+		 * telaPrincipal = new TelaPrincipal(); mnCadastrarVendedor.setVisible(true); };
+		 */
+
+		mntmCadastrarVendedor.setIcon(
+				new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-adicionar-ao-banco-de-dados.png")));
 		mnCadastrarVendedor.add(mntmCadastrarVendedor);
-		
+
 		JMenu mnSobre = new JMenu("sobre");
 		mnSobre.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-card\u00E1pio.png")));
 		menuBar.add(mnSobre);
-		
+
 		JMenuItem mntmTaxasDeJuros = new JMenuItem("Taxas de juros");
 		mntmTaxasDeJuros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -114,9 +114,10 @@ public class TelaPrincipal extends JFrame {
 				setContentPane(juros);
 			}
 		});
-		mntmTaxasDeJuros.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-gr\u00E1fico-combinado.png")));
+		mntmTaxasDeJuros
+				.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-gr\u00E1fico-combinado.png")));
 		mnSobre.add(mntmTaxasDeJuros);
-		
+
 		JMenuItem mntmSoftware = new JMenuItem("Software");
 		mntmSoftware.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

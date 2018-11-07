@@ -1,11 +1,16 @@
 package model.bo;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 
+import model.dao.SimulacaoDAO;
 import model.vo.Simulacao;
 
 public class SimulacaoBO {
 
+	SimulacaoDAO dao = new SimulacaoDAO();
+	
 	public double calcularJuros(Simulacao simula) {
 		double juros = 0;
 		double jurosP = 0;
@@ -94,6 +99,18 @@ public class SimulacaoBO {
 		} catch (InputMismatchException erro) {
 			return false;
 		}
+	}
+
+	public List<Simulacao> listarSimulacoes(Long numContrato, String cpfCliente) {
+		
+		ArrayList<Simulacao> simula = dao.listarPorNumContCpf(numContrato, cpfCliente);
+		
+		return simula;
+	}
+
+	public Simulacao salvarSimulacao(Simulacao s) {
+		
+		return dao.inserir(s);
 	}
 	
 }

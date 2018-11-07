@@ -17,8 +17,38 @@ public class SimulacaoDAO {
 	* @return id caso positivo, é a chave gerada pelo SGBD
 	* 			  caso -1, houve erro no INSERT
 	*/
-	public int inserir(Simulacao s){
-		int novoId = -1;
+	public Simulacao inserir(Simulacao s){
+		
+	        String sql = " INSERT INTO SIMULACAO (NOME, EMAIL, CPF, DTSIMULACAO,VALORCONT, NUMPARCELA, NUNCONT,VALORPARCELA,DTVALIDADE) "
+					+ " VALUES (?,?,?,?,?,?,?,?,?) ";
+	        Connection conexao = Banco.getConnection();
+			PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
+			try {
+				prepStmt.setString(1, s.getNome());
+				prepStmt.setString(2, s.getEmail());
+				prepStmt.setString(3, s.getCpf());		
+				prepStmt.setDate(4, (Date) s.getDtsimulacao());
+				prepStmt.setDouble(5, s.getValorCont());
+				prepStmt.setDouble(6, s.getNumParcela());
+				prepStmt.setLong(7, s.getNumCont());
+				prepStmt.setDouble(8, s.getValorParcela());
+				prepStmt.setDate(9, (Date) s.getDtValidade());
+				//TODO preencher o restante
+				
+				prepStmt.execute();
+
+				ResultSet generatedKeys = prepStmt.getGeneratedKeys();
+		
+			} catch (SQLException e) {
+				System.out.println("Erro ao inserir aluno. Causa: \n:" + e.getMessage());
+			} finally{
+				Banco.closePreparedStatement(prepStmt);
+				Banco.closeConnection(conexao);
+			}
+	    return s;
+}
+	
+	/***	int novoId = -1;
 		//
 
 		String sql = " INSERT INTO SIMULACAO (NOME, EMAIL, CPF, DTSIMULACAO,VALORCONT, NUMPARCELA, NUNCONT,VALORPARCELA,DTVALIDADE) "
@@ -54,7 +84,7 @@ public class SimulacaoDAO {
 		}
 
 		return novoId;
-	}
+	}***/
 
 	public boolean atualizar(Simulacao a){
 		boolean sucessoUpdate = false;
@@ -113,6 +143,13 @@ public class SimulacaoDAO {
 			Banco.closeConnection(conexao);
 		}
 		return sucessoDelete;
+	}
+
+	public ArrayList<Simulacao> listarPorNumContCpf(Long numContrato, String cpfCliente) {
+		
+
+		
+		return null;
 	}
 	
 	/*public ArrayList<Simulacao> listarTodos(){

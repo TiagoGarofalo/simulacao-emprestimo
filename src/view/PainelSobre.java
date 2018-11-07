@@ -13,9 +13,10 @@ public class PainelSobre extends JPanel {
 	 */
 	public PainelSobre() {
 		setLayout(null);
-		
+
 		JTextPane txtpnSoftwareDesenvolvidoPara = new JTextPane();
-		txtpnSoftwareDesenvolvidoPara.setText("          Software desenvolvido para simular empr\u00E9stimos e tornar possivel a contrata\u00E7\u00E3o posterior.");
+		txtpnSoftwareDesenvolvidoPara.setText(
+				"          Software desenvolvido para simular empr\u00E9stimos e tornar possivel a contrata\u00E7\u00E3o posterior.");
 		txtpnSoftwareDesenvolvidoPara.setBounds(10, 11, 430, 278);
 		add(txtpnSoftwareDesenvolvidoPara);
 
