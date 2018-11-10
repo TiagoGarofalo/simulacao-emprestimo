@@ -34,7 +34,7 @@ public class SimulacaoDAO {
 				prepStmt.setDouble(8, s.getValorParcela());
 				prepStmt.setDate(9, (Date) s.getDtValidade());
 				//TODO preencher o restante
-				
+		
 				prepStmt.execute();
 
 				ResultSet generatedKeys = prepStmt.getGeneratedKeys();

@@ -168,7 +168,7 @@ public class TelaSimulacao extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				criaNumContrato(acumulador);
+				//criaNumContrato(acumulador);
 
 				String mensagemValidacao = validarCampos();
 
@@ -217,6 +217,17 @@ public class TelaSimulacao extends JPanel {
 		});
 		btnGravar.setBounds(179, 286, 90, 23);
 		add(btnGravar);
+		
+		//botão que salva o cliente
+		JButton btnSalvarCliente = new JButton("Salvar Cliente");
+		btnSalvarCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+			}
+		});
+		btnSalvarCliente.setBounds(278, 122, 113, 23);
+		add(btnSalvarCliente);
 
 		JLabel lblVlrParcela = new JLabel("Vlr. Parcela: R$");
 		lblVlrParcela.setBounds(8, 265, 87, 14);
@@ -300,13 +311,5 @@ public class TelaSimulacao extends JPanel {
 		novaSimula.setNumParcela(Integer.parseInt(txParcelas.getText()));
 
 		return novaSimula;
-	}
-
-	public int criaNumContrato(int acumulador) {
-
-		acumulador = acumulador + 1;
-
-		return acumulador;
-
 	}
 }
