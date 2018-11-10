@@ -124,8 +124,8 @@ public class TelaSimulacao extends JPanel {
 		lbInserirNumCont.setText(
 				"N° Contrato: " + formatNum.format(numCont) + String.format("%06d", criaNumContrato(acumulador)));
 
-		lbInserirValorParcela = new JLabel("Vlr. Parcela: ");
-		lbInserirValorParcela.setBounds(8, 266, 164, 14);
+		lbInserirValorParcela = new JLabel("");
+		lbInserirValorParcela.setBounds(105, 265, 164, 14);
 		// contentPane.add(lbInserirValorParcela);
 		add(lbInserirValorParcela);
 
@@ -154,8 +154,8 @@ public class TelaSimulacao extends JPanel {
 		// contentPane.add(separator);
 		add(separator);
 
-		JLabel lbInserirJuros = new JLabel("Tx. de juros:");
-		lbInserirJuros.setBounds(7, 245, 136, 14);
+		JLabel lbInserirJuros = new JLabel("");
+		lbInserirJuros.setBounds(105, 250, 136, 14);
 		// contentPane.add(lbInserirJuros);
 		add(lbInserirJuros);
 
@@ -179,10 +179,10 @@ public class TelaSimulacao extends JPanel {
 					Simulacao novaSimula = construirSimulacao();
 
 					double juros = control.calculaJuros(novaSimula);
-					lbInserirJuros.setText("Tx. de juros: " + juros + "%.");
+					lbInserirJuros.setText(juros + "");
 					double valorP = control.calculaValorParc(novaSimula);
 					DecimalFormat numf = new DecimalFormat("#,###.00");
-					lbInserirValorParcela.setText("Vlr. Parcela: R$ " + numf.format(valorP));
+					lbInserirValorParcela.setText(numf.format(valorP));
 				}
 			}
 
@@ -217,6 +217,14 @@ public class TelaSimulacao extends JPanel {
 		});
 		btnGravar.setBounds(179, 286, 90, 23);
 		add(btnGravar);
+
+		JLabel lblVlrParcela = new JLabel("Vlr. Parcela: R$");
+		lblVlrParcela.setBounds(8, 265, 87, 14);
+		add(lblVlrParcela);
+
+		JLabel lblTxJuros = new JLabel("Tx. de juros:");
+		lblTxJuros.setBounds(8, 248, 70, 14);
+		add(lblTxJuros);
 
 	}
 
