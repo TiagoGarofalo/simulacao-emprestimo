@@ -239,6 +239,13 @@ public class TelaSimulacao extends JPanel {
 
 	}
 
+	private Object criaNumContrato(int acumulador) {
+		
+		// TODO Criar parte final do numero do contrato
+		
+		return null;
+	}
+
 	protected String validarCampos() {
 		String mensagemValidacao = "";
 
