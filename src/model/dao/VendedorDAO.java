@@ -1,5 +1,5 @@
 package model.dao;
 
-public class Vendedor {
+public class VendedorDAO {
 
 }

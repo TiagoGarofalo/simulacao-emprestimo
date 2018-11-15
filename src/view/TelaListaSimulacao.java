@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,8 +16,10 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import model.controller.ClienteController;
 import model.controller.SimulacaoController;
 import model.vo.Simulacao;
+
 
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -30,6 +33,10 @@ public class TelaListaSimulacao extends JPanel {
 	private JTextField tfNome;
 	private JTextField tfCpf;
 
+	//Esta lista de produtos é atualizada a cada nova consulta realizada com os filtros.
+		//Será a lista usada para gerar os relatórios
+		private List<Simulacao> simulacoesConsultadas;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -77,7 +84,7 @@ public class TelaListaSimulacao extends JPanel {
 			}
 		});
 
-		btnConsultar.setBounds(110, 71, 127, 23);
+		btnConsultar.setBounds(10, 71, 127, 23);
 		add(btnConsultar);
 
 		JLabel lbNumContrato = new JLabel("N\u00BA Contrato:");
@@ -138,8 +145,29 @@ public class TelaListaSimulacao extends JPanel {
 
 			}
 		});
-		btnContratar.setBounds(250, 71, 127, 23);
+		btnContratar.setBounds(147, 71, 127, 23);
 		add(btnContratar);
+		
+		JButton btnRelatorio = new JButton("Gerar Relat\u00F3rio");
+		btnRelatorio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				JFileChooser jfc = new JFileChooser();
+				jfc.setDialogTitle("Salvar relatório como...");
+				
+				int resultado = jfc.showSaveDialog(null);
+				if(resultado == JFileChooser.APPROVE_OPTION){
+					String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
+					
+					ClienteController control = new ClienteController();
+			
+					control.gerarRelatorio(simulacoesConsultadas, caminhoEscolhido, ClienteController.TIPO_RELATORIO_XLS);
+				}
+				
+			}
+		});
+		btnRelatorio.setBounds(283, 71, 201, 23);
+		add(btnRelatorio);
 
 	}
 
@@ -152,7 +180,7 @@ public class TelaListaSimulacao extends JPanel {
 
 		for (Simulacao simula : simulacoes) {
 			// Crio uma nova linha na tabela
-			// Preencher a linha com os atributos do produto
+			// Preencher a linha com os atributos do contrato
 			// na ORDEM do cabeÃ§alho da tabela
 			Object[] novaLinha = new Object[] { simula.getNumCont(), simula.getNome(), simula.getCpf(),
 					simula.getValorCont(), simula.getDtValidade() };
