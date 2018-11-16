@@ -1,4 +1,4 @@
-package model;
+package model.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,13 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Banco {
+public class ConexaoBanco {
 
 	private static final String DRIVER_MYSQL = "com.mysql.jdbc.Driver";
-	private static final String NOME_ESQUEMA = "DBSIMULA";
+	private static final String NOME_ESQUEMA = "teste";
 	private static final String URL_CONEXAO = "jdbc:mysql://localhost:3306/" + NOME_ESQUEMA;
 	private static final String USUARIO = "root";
-	private static final String SENHA = "";
+	private static final String SENHA = "admin";
 
 	/**
 	 * Estabelece a conexão JBDC considerando as configurações da classe Banco.
@@ -59,21 +59,6 @@ public class Banco {
 		}
 	}
 
-	/**
-	 * 
-	 * Solicita um objeto Statement para uma conexão. Este objeto serve para
-	 * executar as operações SQL.
-	 * 
-	 * Este método deve ser sempre chamado nos DAOs após a criação da expressão
-	 * SQL, geralmente com os métodos execute(sql), executeUpdate(sql) ou
-	 * executeQuery(sql), onde "sql" é do tipo String.
-	 * 
-	 * @param conn uma conexão anteriormente criada.
-	 * @return stmt um objeto do tipo Statement
-	 * 
-	 * @throws SQLException
-	 * 
-	 */
 	public static Statement getStatement(Connection conn) {
 		try {
 			Statement stmt = conn.createStatement();
@@ -84,18 +69,7 @@ public class Banco {
 		}
 	}
 
-	/**
-	 * 
-	 * Fecha um objeto Statement anteriormente criado.
-	 * 
-	 * Este método deve ser sempre chamado nos DAOs após a execução da expressão
-	 * SQL.
-	 * 
-	 * @param stmt um objeto do tipo Statement
-	 * 
-	 * @throws SQLException
-	 * 
-	 */
+	
 	public static void closeStatement(Statement stmt) {
 		try {
 			if (stmt != null) {
@@ -106,17 +80,7 @@ public class Banco {
 		}
 	}
 
-	/**
-	 * 
-	 * Solicita um objeto PreparedStatement para uma conexão. Este objeto serve
-	 * para executar as operações SQL.
-	 * 
-	 * @param conn uma conexão anteriormente criada.
-	 * @return stmt um objeto do tipo PreparedStatement
-	 * 
-	 * @throws SQLException
-	 * 
-	 */
+
 	public static PreparedStatement getPreparedStatement(Connection conn, String sql) {
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
