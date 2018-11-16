@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.InputMismatchException;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -21,9 +22,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
 import model.bo.SimulacaoBO;
+import model.controller.ClienteController;
 import model.controller.SimulacaoController;
 import model.dao.SimulacaoDAO;
-import model.vo.Simulacao;
+import model.vo.ClienteVO;
+import model.vo.SimulacaoVO;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -39,8 +42,11 @@ public class TelaSimulacao extends JPanel {
 	private JLabel lbInserirValorParcela;
 	private JLabel lbInserirDtSimulacao;
 	private JLabel lbInserirDtValidade;
-	Simulacao simula = new Simulacao();
+	ClienteVO cliente = new ClienteVO(); 
+	SimulacaoVO simula = new SimulacaoVO();
 	SimulacaoController control = new SimulacaoController();
+	private List<ClienteVO> ListarTodosClientes;
+	ClienteController controler = new ClienteController();
 
 	/**
 	 * Create the frame.
@@ -176,7 +182,7 @@ public class TelaSimulacao extends JPanel {
 					JOptionPane.showMessageDialog(null, mensagemValidacao, "Atenção", JOptionPane.ERROR_MESSAGE);
 				} else {
 
-					Simulacao novaSimula = construirSimulacao();
+					SimulacaoVO novaSimula = construirSimulacao();
 
 					double juros = control.calculaJuros(novaSimula);
 					lbInserirJuros.setText(juros + "");
@@ -209,10 +215,28 @@ public class TelaSimulacao extends JPanel {
 		JButton btnGravar = new JButton("Gravar");
 		btnGravar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				if (controler.ValidaCPF(txCPF.getText()) == true) {
 
-				Simulacao SalvarSimulacao = construirSimulacao();
+					try {
+						cliente.setNome(txNome.getText());
+						cliente.setEmail(txEmail.getText());
+						cliente.setCpf(txCPF.getText());
+						simula.setDtsimulacao(numcont);
+						simula.setDtValidade(dtValidade);
+						simula.setNumCont(numCont);
+						simula.setNumParcela(numParcela);
+						simula.setValorParcela(valorParcela);
+						controler.salvar(cliente);
+						JOptionPane.showMessageDialog(null, "Salvo com sucesso");		
+						
+					} catch (Exception e) {
+						System.out.println("campos não preenchidos");
+					}
 
-				control.inserirSimulacao(SalvarSimulacao);
+				} else {
+					System.out.printf("Erro, CPF invalido !!!\n");
+				}
 			}
 		});
 		btnGravar.setBounds(179, 286, 90, 23);
@@ -222,6 +246,24 @@ public class TelaSimulacao extends JPanel {
 		JButton btnSalvarCliente = new JButton("Salvar Cliente");
 		btnSalvarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				if (controler.ValidaCPF(txCPF.getText()) == true) {
+
+					try {
+						cliente.setNome(txNome.getText());
+						cliente.setEmail(txEmail.getText());
+						cliente.setCpf(txCPF.getText());
+						controler.salvar(cliente);
+						JOptionPane.showMessageDialog(null, "Salvo com sucesso");		
+						
+					} catch (Exception e) {
+						System.out.println("campos não preenchidos");
+					}
+
+				} else {
+					System.out.printf("Erro, CPF invalido !!!\n");
+				}
+				
 				
 				
 			}
@@ -260,13 +302,7 @@ public class TelaSimulacao extends JPanel {
 		if (txCPF.getText().equals("")) {
 
 			mensagemValidacao += "- Informe o CPF. \n";
-		} else {
-			try {
-				Integer.parseInt(txCPF.getText());
-			} catch (NumberFormatException ex) {
-
-				mensagemValidacao += "- CPF deve ser apenas números \n";
-			}
+		
 		}
 
 		if (!control.validarCPF(txCPF.getText())) {
@@ -308,9 +344,9 @@ public class TelaSimulacao extends JPanel {
 		return mensagemValidacao;
 	}
 
-	public Simulacao construirSimulacao() {
+	public SimulacaoVO construirSimulacao() {
 
-		Simulacao novaSimula = new Simulacao();
+		SimulacaoVO novaSimula = new SimulacaoVO();
 		novaSimula.setNome(txNome.getText());
 		novaSimula.setEmail(txEmail.getText());
 		novaSimula.setCpf(txCPF.getText());

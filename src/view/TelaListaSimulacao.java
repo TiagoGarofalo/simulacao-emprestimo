@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 import model.controller.ClienteController;
 import model.controller.SimulacaoController;
-import model.vo.Simulacao;
+import model.vo.SimulacaoVO;
 
 
 import javax.swing.JScrollPane;
@@ -35,7 +35,7 @@ public class TelaListaSimulacao extends JPanel {
 
 	//Esta lista de produtos é atualizada a cada nova consulta realizada com os filtros.
 		//Será a lista usada para gerar os relatórios
-		private List<Simulacao> simulacoesConsultadas;
+		private List<SimulacaoVO> simulacoesConsultadas;
 	
 	/**
 	 * Launch the application.
@@ -68,6 +68,7 @@ public class TelaListaSimulacao extends JPanel {
 		JButton btnConsultar = new JButton("Consultar");
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 
 				SimulacaoController controlador = new SimulacaoController();
 
@@ -76,7 +77,7 @@ public class TelaListaSimulacao extends JPanel {
 				// TODO pegar da tela os valores dos filtros
 				Long numContrato = Long.valueOf(tfNome.getText());
 				String cpfCliente = tfCpf.getText();
-				List<Simulacao> simulacoes = controlador.listarContratos(numContrato, cpfCliente);
+				List<SimulacaoVO> simulacoes = controlador.listarContratos(numContrato, cpfCliente);
 
 				if (simulacoes != null) {
 					atualizarTabelaSimulacoes(simulacoes);
@@ -161,7 +162,7 @@ public class TelaListaSimulacao extends JPanel {
 					
 					ClienteController control = new ClienteController();
 			
-					control.gerarRelatorio(simulacoesConsultadas, caminhoEscolhido, ClienteController.TIPO_RELATORIO_XLS);
+					//control.gerarRelatorio(simulacoesConsultadas, caminhoEscolhido, ClienteController.TIPO_RELATORIO_XLS);
 				}
 				
 			}
@@ -171,14 +172,14 @@ public class TelaListaSimulacao extends JPanel {
 
 	}
 
-	protected void atualizarTabelaSimulacoes(List<Simulacao> simulacoes) {
+	protected void atualizarTabelaSimulacoes(List<SimulacaoVO> simulacoes) {
 		// Limpa a tabela
 		tblSimulacao.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Contrato", "Nome", "CPF", "Valor", "Validade" }));
 
 		DefaultTableModel modelo = (DefaultTableModel) tblSimulacao.getModel();
 
-		for (Simulacao simula : simulacoes) {
+		for (SimulacaoVO simula : simulacoes) {
 			// Crio uma nova linha na tabela
 			// Preencher a linha com os atributos do contrato
 			// na ORDEM do cabeÃ§alho da tabela

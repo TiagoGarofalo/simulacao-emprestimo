@@ -5,13 +5,13 @@ import java.util.InputMismatchException;
 import java.util.List;
 
 import model.dao.SimulacaoDAO;
-import model.vo.Simulacao;
+import model.vo.SimulacaoVO;
 
 public class SimulacaoBO {
 
 	SimulacaoDAO dao = new SimulacaoDAO();
 	
-	public double calcularJuros(Simulacao simula) {
+	public double calcularJuros(SimulacaoVO simula) {
 		double juros = 0;
 		double jurosP = 0;
 		double jurosV = 0;
@@ -29,7 +29,7 @@ public class SimulacaoBO {
 		return juros;
 	}
 
-	public double calcularValorParcelas(Simulacao simula) {
+	public double calcularValorParcelas(SimulacaoVO simula) {
 
 		double juros = 0;
 		double jurosP = 0;
@@ -101,14 +101,14 @@ public class SimulacaoBO {
 		}
 	}
 
-	public List<Simulacao> listarSimulacoes(Long numContrato, String cpfCliente) {
+	public List<SimulacaoVO> listarSimulacoes(Long numContrato, String cpfCliente) {
 		
-		ArrayList<Simulacao> simula = dao.listarPorNumContCpf(numContrato, cpfCliente);
+		ArrayList<SimulacaoVO> simula = dao.listarPorNumContCpf(numContrato, cpfCliente);
 		
 		return simula;
 	}
 
-	public Simulacao salvarSimulacao(Simulacao s) {
+	public SimulacaoVO salvarSimulacao(SimulacaoVO s) {
 		
 		return dao.inserir(s);
 	}

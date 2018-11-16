@@ -4,30 +4,33 @@ import java.util.List;
 
 import model.bo.ClienteBO;
 import model.vo.ClienteVO;
-import model.vo.Simulacao;
+
+
 
 public class ClienteController {
 	
-	public static final String TIPO_RELATORIO_XLS = "xls";
 	
-	ClienteBO bo = new ClienteBO();
-
-public ClienteVO inserirSimulacao(ClienteVO cliente) {
+	
+	public boolean salvar (ClienteVO cliente) {
+		ClienteBO bo = new ClienteBO();
 		
-		return bo.salvarCliente(cliente);
+		return bo.salvar(cliente); 
 		
 	}
 
-public void gerarRelatorio(List<Simulacao> simulacoesConsultadas, String caminhoEscolhido, String tipoRelatorioXls) {
+	public void deletar(String cpf) {
 	
-	//TODO fazer mais validações? Quais?
-			if(tipoRelatorioXls.equals(TIPO_RELATORIO_XLS)){
-				bo.gerarPlanilha(simulacoesConsultadas, caminhoEscolhido);
-			}else{
-				bo.gerarPDF(simulacoesConsultadas, caminhoEscolhido);
-			}
+		ClienteBO bo = new ClienteBO();
+		bo.excluir(cpf);
 	
-}
-	
-	
+	}
+
+	public boolean ValidaCPF(String cpf) {
+		ClienteBO bo = new ClienteBO();
+				return bo.isCPF(cpf);
+	}
+	public List<ClienteVO> ListarTodosClientes (){
+		ClienteBO bo = new ClienteBO();
+		return bo.ListarTodos();
+				}
 }

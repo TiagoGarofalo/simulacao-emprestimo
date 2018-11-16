@@ -6,8 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import model.Banco;
-import model.vo.Simulacao;
+import model.dao.ConexaoBanco;
+import model.vo.SimulacaoVO;
 
 public class SimulacaoDAO {
 	
@@ -17,12 +17,12 @@ public class SimulacaoDAO {
 	* @return id caso positivo, é a chave gerada pelo SGBD
 	* 			  caso -1, houve erro no INSERT
 	*/
-	public Simulacao inserir(Simulacao s){
+	public SimulacaoVO inserir(SimulacaoVO s){
 		
 	        String sql = " INSERT INTO SIMULACAO (NOME, EMAIL, CPF, DTSIMULACAO,VALORCONT, NUMPARCELA, NUNCONT,VALORPARCELA,DTVALIDADE) "
 					+ " VALUES (?,?,?,?,?,?,?,?,?) ";
-	        Connection conexao = Banco.getConnection();
-			PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
+	        Connection conexao = ConexaoBanco.getConnection();
+			PreparedStatement prepStmt = ConexaoBanco.getPreparedStatement(conexao, sql);
 			try {
 				prepStmt.setString(1, s.getNome());
 				prepStmt.setString(2, s.getEmail());
@@ -42,8 +42,8 @@ public class SimulacaoDAO {
 			} catch (SQLException e) {
 				System.out.println("Erro ao inserir aluno. Causa: \n:" + e.getMessage());
 			} finally{
-				Banco.closePreparedStatement(prepStmt);
-				Banco.closeConnection(conexao);
+				ConexaoBanco.closePreparedStatement(prepStmt);
+				ConexaoBanco.closeConnection(conexao);
 			}
 	    return s;
 }
@@ -86,14 +86,14 @@ public class SimulacaoDAO {
 		return novoId;
 	}***/
 
-	public boolean atualizar(Simulacao a){
+	public boolean atualizar(SimulacaoVO a){
 		boolean sucessoUpdate = false;
 
 		String sql = " UPDATE SIMULACAO P SET ID_SIMULACAO=?,EMAIL=?, CPF=?, DTSIMULACAO=?,VALORCONT=?, NUMPARCELA=?, NUNCONT=?,VALORPARCELA=?,DTVALIDADE=? "
 				         + " WHERE P.ID = ? ";
 
-		Connection conexao = Banco.getConnection();
-		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
+		Connection conexao = ConexaoBanco.getConnection();
+		PreparedStatement prepStmt = ConexaoBanco.getPreparedStatement(conexao, sql);
 
 		try {
 			prepStmt.setString(1, a.getNome());
@@ -115,8 +115,8 @@ public class SimulacaoDAO {
 		} catch (SQLException e) {
 			System.out.println("Erro ao atualizar aluno. Causa: \n:" + e.getCause());
 		}finally{
-			Banco.closePreparedStatement(prepStmt);
-			Banco.closeConnection(conexao);
+			ConexaoBanco.closePreparedStatement(prepStmt);
+			ConexaoBanco.closeConnection(conexao);
 		}
 
 		return sucessoUpdate;
@@ -128,8 +128,8 @@ public class SimulacaoDAO {
 		String sql = " DELETE FROM SIMULACAO "
 				+ " WHERE ID = ? ";
 
-		Connection conexao = Banco.getConnection();
-		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
+		Connection conexao = ConexaoBanco.getConnection();
+		PreparedStatement prepStmt = ConexaoBanco.getPreparedStatement(conexao, sql);
 		try {
 			prepStmt.setInt(1, id);
 			int codigoRetorno = prepStmt.executeUpdate();
@@ -139,13 +139,13 @@ public class SimulacaoDAO {
 		} catch (SQLException e) {
 			System.out.println("Erro ao remover aluno. Causa: \n:" + e.getCause());
 		}finally{
-			Banco.closePreparedStatement(prepStmt);
-			Banco.closeConnection(conexao);
+			ConexaoBanco.closePreparedStatement(prepStmt);
+			ConexaoBanco.closeConnection(conexao);
 		}
 		return sucessoDelete;
 	}
 
-	public ArrayList<Simulacao> listarPorNumContCpf(Long numContrato, String cpfCliente) {
+	public ArrayList<SimulacaoVO> listarPorNumContCpf(Long numContrato, String cpfCliente) {
 		
 
 		

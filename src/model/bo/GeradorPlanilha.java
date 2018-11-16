@@ -10,7 +10,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
-import model.vo.Simulacao;
+import model.vo.SimulacaoVO;
 
 
 /**
@@ -30,7 +30,7 @@ public class GeradorPlanilha {
 	 * @return byte[] a planilha (do tipo HSSFWorkbook) convertida para um array
 	 *         de bytes
 	 */
-	public void gerarPlanilhaProdutos(List<Simulacao> simulacoes, String caminho) {
+	public void gerarPlanilhaProdutos(List<SimulacaoVO> simulacoes, String caminho) {
 		String[] columns = { "Contrato", "Nome", "CPF", "Valor", "Validade" };
 
 		HSSFWorkbook planilha = new HSSFWorkbook();
@@ -48,7 +48,7 @@ public class GeradorPlanilha {
 
 		// 3) Cria as linhas com os produtos da lista
 		int rowNum = 1;
-		for (Simulacao simul : simulacoes) {
+		for (SimulacaoVO simul : simulacoes) {
 			Row novaLinha = abaPlanilha.createRow(rowNum++);
 			
 			novaLinha.createCell(0).setCellValue(simul.getNumCont());

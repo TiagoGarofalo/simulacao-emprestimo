@@ -2,7 +2,7 @@ package model.vo;
 
 import java.util.Date;
 
-public class Simulacao {
+public class SimulacaoVO {
 
 	private String nome;
 	private String email;
@@ -14,7 +14,7 @@ public class Simulacao {
 	private Date dtsimulacao;
 	private Date dtValidade;
 
-	public Simulacao(String nome, String email, String cpf, double valorCont, double numParcela, Long numCont,
+	public SimulacaoVO(String nome, String email, String cpf, double valorCont, double numParcela, Long numCont,
 			double valorParcela, Date dtsimulacao, Date dtValidade) {
 		super();
 		this.nome = nome;
@@ -28,7 +28,7 @@ public class Simulacao {
 		this.dtValidade = dtValidade;
 	}
 
-	public Simulacao() {
+	public SimulacaoVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
