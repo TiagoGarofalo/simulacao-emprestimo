@@ -36,7 +36,7 @@ public class ClienteDAO {
 	
 		try {
 			Connection conn = ConexaoBanco.getConnection();
-			String sql ="UPDATE cliente SET nome = ?, email= ? WHERE cpf= ?";
+			String sql ="UPDATE cliente SET nome = ?, email= ? WHERE id_cliente= ?";
 			
 			PreparedStatement ps = ConexaoBanco.getPreparedStatement(conn, sql);
 			

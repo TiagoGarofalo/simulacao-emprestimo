@@ -216,17 +216,17 @@ public class TelaSimulacao extends JPanel {
 		btnGravar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				if (controler.ValidaCPF(txCPF.getText()) == true) {
+		if (controler.ValidaCPF(txCPF.getText()) == true) {
 
 					try {
 						cliente.setNome(txNome.getText());
 						cliente.setEmail(txEmail.getText());
 						cliente.setCpf(txCPF.getText());
-						simula.setDtsimulacao(numcont);
-						simula.setDtValidade(dtValidade);
-						simula.setNumCont(numCont);
-						simula.setNumParcela(numParcela);
-						simula.setValorParcela(valorParcela);
+				//		simula.setDtsimulacao(numcont);
+						//		simula.setDtValidade(dtValidade);
+						//simula.setNumCont(numCont);
+						//simula.setNumParcela(numParcela);
+						//simula.setValorParcela(valorParcela);
 						controler.salvar(cliente);
 						JOptionPane.showMessageDialog(null, "Salvo com sucesso");		
 						
@@ -257,11 +257,11 @@ public class TelaSimulacao extends JPanel {
 						JOptionPane.showMessageDialog(null, "Salvo com sucesso");		
 						
 					} catch (Exception e) {
-						System.out.println("campos não preenchidos");
+						JOptionPane.showMessageDialog(null,"Preencha os campos!!");
 					}
 
 				} else {
-					System.out.printf("Erro, CPF invalido !!!\n");
+					JOptionPane.showMessageDialog(null,"CPF invalido");
 				}
 				
 				

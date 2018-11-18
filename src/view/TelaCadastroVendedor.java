@@ -2,49 +2,100 @@ package view;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import model.controller.VendedorController;
+import model.vo.VendedorVO;
+
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaCadastroVendedor extends JPanel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField tfNome;
-	private JTextField tfSenha;
-
+	private JTextField txNome;
+	private JTextField txEmail;
+	private VendedorController control = new VendedorController();
+	private JTextField txSenha;
+	private JTextField txCPF;
+	
 	/**
 	 * Create the panel.
 	 */
 	public TelaCadastroVendedor() {
 		setLayout(null);
 
-		JLabel lblNome = new JLabel("Nome");
+		JLabel lblNome = new JLabel("Nome : ");
 		lblNome.setBounds(10, 50, 46, 14);
 		add(lblNome);
 
-		tfNome = new JTextField();
-		tfNome.setBounds(10, 66, 220, 20);
-		add(tfNome);
-		tfNome.setColumns(10);
+		txNome = new JTextField();
+		txNome.setBounds(66, 47, 220, 20);
+		add(txNome);
+		txNome.setColumns(10);
 
-		JLabel lblSenha = new JLabel("Senha");
-		lblSenha.setBounds(10, 97, 46, 14);
-		add(lblSenha);
+		JLabel lblEmail = new JLabel("E-mail :");
+		lblEmail.setBounds(10, 78, 46, 14);
+		add(lblEmail);
 
-		tfSenha = new JTextField();
-		tfSenha.setBounds(10, 113, 220, 20);
-		add(tfSenha);
-		tfSenha.setColumns(10);
+		txEmail = new JTextField();
+		txEmail.setBounds(66, 75, 220, 20);
+		add(txEmail);
+		txEmail.setColumns(10);
 
 		JButton btnCadastrar = new JButton("Cadastrar");
-		btnCadastrar.setBounds(10, 147, 220, 23);
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				if (control.ValidaCPF(txCPF.getText()) == true) {	
+				try {
+					VendedorVO NovoVendedor = new VendedorVO();
+					
+				NovoVendedor.setNome(txNome.getText());
+				NovoVendedor.setEmail(txEmail.getText());
+				NovoVendedor.setCpf(txCPF.getText());
+				NovoVendedor.setSenha(txSenha.getText());
+				control.salvar(NovoVendedor);
+				JOptionPane.showMessageDialog(null, "Salvo com sucesso");	
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null,"Preencha os campos!!");
+				}
+
+			} else {
+				JOptionPane.showMessageDialog(null,"CPF invalido");
+			}
+				
+				
+			}
+		});
+		btnCadastrar.setBounds(10, 209, 220, 23);
 		add(btnCadastrar);
 
 		JLabel lblCadastrarVendedor = new JLabel("Cadastrar Vendedor");
 		lblCadastrarVendedor.setBounds(10, 11, 150, 14);
 		add(lblCadastrarVendedor);
+		
+		txSenha = new JTextField();
+		txSenha.setBounds(66, 102, 150, 20);
+		add(txSenha);
+		txSenha.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Senha : ");
+		lblNewLabel.setBounds(10, 103, 46, 14);
+		add(lblNewLabel);
+		
+		txCPF = new JTextField();
+		txCPF.setBounds(66, 133, 86, 20);
+		add(txCPF);
+		txCPF.setColumns(10);
+		
+		JLabel lblCpf = new JLabel("CPF:");
+		lblCpf.setBounds(10, 136, 46, 14);
+		add(lblCpf);
 
 	}
-
 }
