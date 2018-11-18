@@ -32,5 +32,10 @@ public class SimulacaoController {
 		return bo.salvarSimulacao(simul);
 		
 	}
+
+	public void salvar(SimulacaoVO simula) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
