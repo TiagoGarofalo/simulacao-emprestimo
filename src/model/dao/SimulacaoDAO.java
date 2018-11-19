@@ -19,7 +19,7 @@ public class SimulacaoDAO {
 	*/
 	public SimulacaoVO inserir(SimulacaoVO s){
 		
-	        String sql = " INSERT INTO SIMULACAO (NOME, EMAIL, CPF, DTSIMULACAO,VALORCONT, NUMPARCELA, NUNCONT,VALORPARCELA,DTVALIDADE) "
+	        String sql = " INSERT INTO SIMULACAO (NOME, EMAIL, CPF, DTSIMULACAO, VALORCONT, NUMPARCELA, NUNCONT, VALORPARCELA, DTVALIDADE) "
 					+ " VALUES (?,?,?,?,?,?,?,?,?) ";
 	        Connection conexao = ConexaoBanco.getConnection();
 			PreparedStatement prepStmt = ConexaoBanco.getPreparedStatement(conexao, sql);

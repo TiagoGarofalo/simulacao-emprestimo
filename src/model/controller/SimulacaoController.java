@@ -33,9 +33,10 @@ public class SimulacaoController {
 		
 	}
 
-	public void salvar(SimulacaoVO simula) {
-		// TODO Auto-generated method stub
+	/*public void salvar(SimulacaoVO simula) {
 		
-	}
+		
+		
+	}*/
 	
 }

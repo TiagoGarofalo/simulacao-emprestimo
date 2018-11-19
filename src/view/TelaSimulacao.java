@@ -44,13 +44,13 @@ public class TelaSimulacao extends JPanel {
 	private JLabel lbInserirValorParcela;
 	private JLabel lbInserirDtSimulacao;
 	private JLabel lbInserirDtValidade;
-	ClienteVO cliente = new ClienteVO(); 
+	ClienteVO cliente = new ClienteVO();
 	SimulacaoVO simula = new SimulacaoVO();
 	SimulacaoController simulaControl = new SimulacaoController();
 	private List<ClienteVO> ListarTodosClientes;
 	VendedorVO vendedor = new VendedorVO();
 	ClienteController clienteControler = new ClienteController();
-	
+
 	/**
 	 * Create the frame.
 	 */
@@ -171,8 +171,7 @@ public class TelaSimulacao extends JPanel {
 		JButton btSimular = new JButton("Simular Emprestimo");
 		btSimular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
+
 				String mensagemValidacao = validarCampos();
 
 				if (!mensagemValidacao.equals("")) {
@@ -186,26 +185,22 @@ public class TelaSimulacao extends JPanel {
 					double valorP = simulaControl.calculaValorParc(novaSimula);
 					DecimalFormat numf = new DecimalFormat("#,###.00");
 					lbInserirValorParcela.setText(numf.format(valorP));
-					
-					JOptionPane.showMessageDialog(null,"Simulação: "
-							 + "Nome do cliente:"+cliente.getNome()
-							 + "Data da simulação:"+ formatValidade.format(dataV)
-							 + "Nome do vendedor:" + vendedor.getNome()
-							 + "Valor do financiamento:" + txValorCont.getText()
-							 + "Taxa de juros:" +
-							 + "Numeros de parcelas:"
-							 + "Valor do juros:"
-							 + "Toital do emprestimo: ");
+
+					JOptionPane.showMessageDialog(null,
+							"Simulação: " + "Nome do cliente:" + cliente.getNome() + "Data da simulação:"
+									+ formatValidade.format(dataV) + "Nome do vendedor:" + vendedor.getNome()
+									+ "Valor do financiamento:" + txValorCont.getText() + "Taxa de juros:"
+									+ "Numeros de parcelas:" + "Valor do juros:" + "Toital do emprestimo: ");
 
 				}
-								
+
 			}
 		});
 		btSimular.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				//criaNumContrato(acumulador);
+				// criaNumContrato(acumulador);
 
 				String mensagemValidacao = validarCampos();
 
@@ -246,22 +241,44 @@ public class TelaSimulacao extends JPanel {
 		JButton btnGravar = new JButton("Salvar simula\u00E7\u00E3o");
 		btnGravar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-		if (clienteControler.ValidaCPF(txCPF.getText()) == true) {
+
+				if (clienteControler.ValidaCPF(txCPF.getText()) == true) {
 
 					try {
 						cliente.setNome(txNome.getText());
 						cliente.setEmail(txEmail.getText());
 						cliente.setCpf(txCPF.getText());
+						
 						simula.setNome(txNome.getText());
 						simula.setEmail(txEmail.getText());
 						simula.setCpf(txCPF.getText());
+						
 						simula.setValorCont(Double.parseDouble(txValorCont.getText()));
 						simula.setNumParcela(Integer.parseInt(txParcelas.getText()));
-						simulaControl.salvar(simula);
-						clienteControler.salvar(cliente);
-						JOptionPane.showMessageDialog(null, "Salvo com sucesso");		
+						simula.setNumCont(Long.valueOf(formatNum.format(numCont) + String.format("%06d", criaNumContrato(acumulador))));
+						simula.setValorParcela(Double.parseDouble(lbInserirValorParcela.getText()));
+						simula.setDtsimulacao(Date.parseDate(formatDate.format(dataSimulacao)));
+						simula.setDtValidade(formatValidade.format(dataV));
 						
+						
+						/*private double valorCont;
+						private double numParcela;
+						private Long numCont;
+						private double valorParcela;
+						private Date dtsimulacao;
+						private Date dtValidade;*/
+						
+						/*,DTINICIO date
+						,DTFINAL DATE
+						,TXJUROS FLOAT (10)
+						,QNTPARCERLAS BIGINT(12)
+						,VJUROS FLOAT (12)
+						,TOTALEMP BIGINT (12)*/
+						
+						simulaControl.inserirSimulacao(simula);
+						clienteControler.salvar(cliente);
+						JOptionPane.showMessageDialog(null, "Salvo com sucesso");
+
 					} catch (Exception e) {
 						System.out.println("campos não preenchidos");
 					}
@@ -273,12 +290,12 @@ public class TelaSimulacao extends JPanel {
 		});
 		btnGravar.setBounds(8, 286, 130, 23);
 		add(btnGravar);
-		
-		//botão que salva o cliente
+
+		// botão que salva o cliente
 		JButton btnSalvarCliente = new JButton("Salvar Cliente");
 		btnSalvarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				if (clienteControler.ValidaCPF(txCPF.getText()) == true) {
 
 					try {
@@ -286,18 +303,16 @@ public class TelaSimulacao extends JPanel {
 						cliente.setEmail(txEmail.getText());
 						cliente.setCpf(txCPF.getText());
 						clienteControler.salvar(cliente);
-						JOptionPane.showMessageDialog(null, "Salvo com sucesso");		
-						
+						JOptionPane.showMessageDialog(null, "Salvo com sucesso");
+
 					} catch (Exception e) {
-						JOptionPane.showMessageDialog(null,"Preencha os campos!!");
+						JOptionPane.showMessageDialog(null, "Preencha os campos!!");
 					}
 
 				} else {
-					JOptionPane.showMessageDialog(null,"CPF invalido");
+					JOptionPane.showMessageDialog(null, "CPF invalido");
 				}
-				
-				
-				
+
 			}
 		});
 		btnSalvarCliente.setBounds(278, 122, 113, 23);
@@ -306,9 +321,9 @@ public class TelaSimulacao extends JPanel {
 	}
 
 	private Object criaNumContrato(int acumulador) {
-		
+
 		// TODO Criar parte final do numero do contrato
-		
+
 		return null;
 	}
 
@@ -326,7 +341,7 @@ public class TelaSimulacao extends JPanel {
 		if (txCPF.getText().equals("")) {
 
 			mensagemValidacao += "- Informe o CPF. \n";
-		
+
 		}
 
 		if (!simulaControl.validarCPF(txCPF.getText())) {

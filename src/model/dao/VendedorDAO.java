@@ -3,11 +3,12 @@ package model.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import dao.Banco;
 import model.vo.VendedorVO;
 
 public class VendedorDAO {
-	
-	
+
 	public boolean insert(VendedorVO vendedor) {
 		Connection conn = ConexaoBanco.getConnection();
 		try {
@@ -30,13 +31,13 @@ public class VendedorDAO {
 	}
 
 	private boolean update(VendedorVO vendedor) {
-	
+
 		try {
 			Connection conn = ConexaoBanco.getConnection();
-			String sql ="UPDATE cliente SET nome = ?, email= ? WHERE ID_vendedor= ?";
-			
+			String sql = "UPDATE cliente SET nome = ?, email= ? WHERE ID_vendedor= ?";
+
 			PreparedStatement ps = ConexaoBanco.getPreparedStatement(conn, sql);
-			
+
 			ps.setString(1, vendedor.getNome());
 			ps.setString(2, vendedor.getEmail());
 			ps.setInt(3, vendedor.getId());
@@ -64,13 +65,26 @@ public class VendedorDAO {
 	}
 
 	public boolean delete(String cpf) {
-		// TODO Auto-generated method stub
+
+		try {
+			Connection conn = ConexaoBanco.getConnection();
+			String sql = " DELETE FROM VENDEDOR  WHERE CPFVENDEDOR = ? ";
+
+			PreparedStatement ps = ConexaoBanco.getPreparedStatement(conn, sql);
+
+			ps.setString(1, cpf);
+
+			ps.execute();
+
+			ps.close();
+			conn.close();
+			return true;
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
 		return false;
+
 	}
 
-	
-	
-	
-	
-	
 }

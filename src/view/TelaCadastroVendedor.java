@@ -53,13 +53,13 @@ public class TelaCadastroVendedor extends JPanel {
 				
 				if (control.ValidaCPF(txCPF.getText()) == true) {	
 				try {
-					VendedorVO NovoVendedor = new VendedorVO();
+					VendedorVO novoVendedor = new VendedorVO();
 					
-				NovoVendedor.setNome(txNome.getText());
-				NovoVendedor.setEmail(txEmail.getText());
-				NovoVendedor.setCpf(txCPF.getText());
-				NovoVendedor.setSenha(txSenha.getText());
-				control.salvar(NovoVendedor);
+				novoVendedor.setNome(txNome.getText());
+				novoVendedor.setEmail(txEmail.getText());
+				novoVendedor.setCpf(txCPF.getText());
+				novoVendedor.setSenha(txSenha.getText());
+				control.salvar(novoVendedor);
 				JOptionPane.showMessageDialog(null, "Salvo com sucesso");	
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null,"Preencha os campos!!");
@@ -96,6 +96,28 @@ public class TelaCadastroVendedor extends JPanel {
 		JLabel lblCpf = new JLabel("CPF:");
 		lblCpf.setBounds(10, 136, 46, 14);
 		add(lblCpf);
+		
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (control.ValidaCPF(txCPF.getText()) == true) {	
+					try {
+						
+					control.deletar(txCPF.getText());
+					JOptionPane.showMessageDialog(null, "Excluido com sucesso");	
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null,"Preencha os campos!!");
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(null,"CPF invalido");
+				}
+				
+			}
+		});
+		btnExcluir.setBounds(10, 243, 220, 23);
+		add(btnExcluir);
 
 	}
 }
