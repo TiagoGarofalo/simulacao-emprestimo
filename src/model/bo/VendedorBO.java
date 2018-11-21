@@ -11,7 +11,7 @@ public class VendedorBO {
 	
 	public boolean salvar(VendedorVO vendedor) {
 		
-		return dao.salvar(vendedor);
+		return dao.insert(vendedor);
 	}
 
 	public boolean excluir(String cpf) {

@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import model.dao.ConexaoBanco;
 import model.vo.SimulacaoVO;
+import model.vo.ContratoVO;
+import model.vo.VendedorVO;
+import model.vo.ClienteVO;
 
 public class SimulacaoDAO {
 	
@@ -17,16 +20,17 @@ public class SimulacaoDAO {
 	* @return id caso positivo, é a chave gerada pelo SGBD
 	* 			  caso -1, houve erro no INSERT
 	*/
-	public SimulacaoVO inserir(SimulacaoVO s){
+	public SimulacaoVO inserir(SimulacaoVO s,ClienteVO c,VendedorVO v,ContratoVO contrato){
 		
-	        String sql = " INSERT INTO SIMULACAO (NOME, EMAIL, CPF, DTSIMULACAO, VALORCONT, NUMPARCELA, NUNCONT, VALORPARCELA, DTVALIDADE) "
+	        String sql = " INSERT INTO SIMULACAO (IDVENDEDOR, IDCLIENTE, IDCONTRATO,  DTSIMULACAO, "
+	        		+ "VALORCONT, NUMPARCELA, NUNCONT, VALORPARCELA, DTVALIDADE) "
 					+ " VALUES (?,?,?,?,?,?,?,?,?) ";
 	        Connection conexao = ConexaoBanco.getConnection();
 			PreparedStatement prepStmt = ConexaoBanco.getPreparedStatement(conexao, sql);
 			try {
-				prepStmt.setString(1, s.getNome());
-				prepStmt.setString(2, s.getEmail());
-				prepStmt.setString(3, s.getCpf());		
+				prepStmt.setInt(1, v.getId());
+				prepStmt.setInt(2, c.getId());
+				prepStmt.setInt(3, contrato.getId());
 				prepStmt.setDate(4, (Date) s.getDtsimulacao());
 				prepStmt.setDouble(5, s.getValorCont());
 				prepStmt.setDouble(6, s.getNumParcela());

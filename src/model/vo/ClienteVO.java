@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ClienteVO {
 
-	private int id;
+	private int id; //mudar nome para idcliente
 	private String nome;
 	private String email;
 	private String cpf;

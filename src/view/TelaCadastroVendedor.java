@@ -61,7 +61,7 @@ public class TelaCadastroVendedor extends JPanel {
 				novoVendedor.setSenha(txSenha.getText());
 				control.salvar(novoVendedor);
 				JOptionPane.showMessageDialog(null, "Salvo com sucesso");	
-				} catch (Exception e) {
+				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(null,"Preencha os campos!!");
 				}
 

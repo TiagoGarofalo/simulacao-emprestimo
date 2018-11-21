@@ -2,7 +2,7 @@ package model.vo;
 
 public class VendedorVO {
 
-	private int id;
+	private int id; //mudar nome para idvendedor
 	private String nome;
 	private String Email;
 	private String cpf;

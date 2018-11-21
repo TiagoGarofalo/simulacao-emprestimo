@@ -16,7 +16,7 @@ public class ClienteDAO {
 		Connection conn = ConexaoBanco.getConnection();
 		try {
 			PreparedStatement ps = conn
-					.prepareStatement("INSERT INTO cliente " + "(nome, cpf, email) " + "VALUES ( ?, ?, ?)");
+					.prepareStatement("INSERT INTO cliente " + "(nome, CPFCLIENTE, email) " + "VALUES ( ?, ?, ?)");
 			ps.setString(1, cliente.getNome());
 			ps.setString(2, cliente.getCpf());
 			ps.setString(3, cliente.getEmail());

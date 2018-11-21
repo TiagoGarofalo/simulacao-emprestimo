@@ -5,7 +5,10 @@ import java.util.InputMismatchException;
 import java.util.List;
 
 import model.dao.SimulacaoDAO;
+import model.vo.ClienteVO;
+import model.vo.ContratoVO;
 import model.vo.SimulacaoVO;
+import model.vo.VendedorVO;
 
 public class SimulacaoBO {
 
@@ -108,9 +111,9 @@ public class SimulacaoBO {
 		return simula;
 	}
 
-	public SimulacaoVO salvarSimulacao(SimulacaoVO s) {
+	public SimulacaoVO salvarSimulacao(SimulacaoVO s,ClienteVO c,VendedorVO v,ContratoVO contrato) {
 		
-		return dao.inserir(s);
+		return dao.inserir(s,c,v,contrato);
 	}
 	
 }
