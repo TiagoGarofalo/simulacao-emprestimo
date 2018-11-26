@@ -7,6 +7,7 @@ public class VendedorVO {
 	private String Email;
 	private String cpf;
 	private String senha;
+	
 
 	public VendedorVO() {
 		super();

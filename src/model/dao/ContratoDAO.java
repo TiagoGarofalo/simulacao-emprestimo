@@ -13,12 +13,12 @@ public class ContratoDAO {
 		try {
 			PreparedStatement ps = conn
 
-					.prepareStatement("INSERT INTO contrato " + "(NUMERO_CONTRATO, VALOR_DO_CONTRATO, NUMERO_PARCELAS) "
-							+ "VALUES ( ?, ?, ?)");
-
-			ps.setString(1, contrato.getNumContrato());
-			ps.setDouble(2, contrato.getValorContrato());
-			ps.setInt(3, contrato.getNumParcela());
+					.prepareStatement(" INSERT INTO contrato (ID_CONTRATO,NUMERO_CONTRATO, VALOR_DO_CONTRATO, NUMERO_PARCELAS) "
+							+ "VALUES ( ?, ?, ?, ?)" );
+			ps.setInt(1, contrato.getId());
+			ps.setString(2, contrato.getNumContrato());
+			ps.setDouble(3, contrato.getValorContrato());
+			ps.setInt(4, contrato.getNumParcela());
 
 			ps.execute();
 			ps.close();

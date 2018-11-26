@@ -8,20 +8,20 @@ public class ClienteVO {
 	private String nome;
 	private String email;
 	private String cpf;
-	private ClienteVO cliente;
+
 	
 		public ClienteVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ClienteVO(int id, String nome, String email, String cpf, ClienteVO cliente) {
+	public ClienteVO(int id, String nome, String email, String cpf) {
 			super();
 			this.id = id;
 			this.nome = nome;
 			this.email = email;
 			this.cpf = cpf;
-			this.cliente = cliente;
+		
 		}
 
 	public String getNome() {
@@ -49,17 +49,6 @@ public class ClienteVO {
 		this.id = id;
 	}
 
-	public ClienteVO getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(ClienteVO cliente) {
-		this.cliente = cliente;
-	}
-
-
-	
-	
 	
 	
 	
