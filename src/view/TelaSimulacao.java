@@ -114,7 +114,7 @@ public class TelaSimulacao extends JPanel {
 		// contentPane.add(txValorCont);
 		add(txValorCont);
 		txValorCont.setColumns(10);
-
+		
 		JLabel lbQtdDeParcelas = new JLabel("Qtd. de Parcelas:");
 		lbQtdDeParcelas.setBounds(8, 225, 100, 14);
 		// contentPane.add(lbQtdDeParcelas);
@@ -253,14 +253,14 @@ public class TelaSimulacao extends JPanel {
 						contrato.setValorContrato(Double.parseDouble(txValorCont.getText()));
 
 						contratoControler.salvarContrato(contrato);
-						simula.setValorCont(Double.parseDouble(txValorCont.getText()));
+						/*simula.setValorCont(Double.parseDouble(txValorCont.getText()));
 						simula.setNumParcela(Integer.parseInt(txParcelas.getText()));
 						simula.setNumCont(Long.valueOf(formatNum.format(numCont) + String.format("%06d", acumulador)));
 						simula.setValorParcela(Double.parseDouble(lbInserirValorParcela.getText()));
 						simula.setDtsimulacao(dataSimulacao);
 						simula.setDtValidade(dataV);
 
-						simulaControl.salvarSimula(simula,cliente,vendedor,contrato);
+						simulaControl.salvarSimula(simula, cliente, vendedor, contrato);*/
 
 						clienteControler.salvar(cliente);
 						JOptionPane.showMessageDialog(null, "Salvo com sucesso");
