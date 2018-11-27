@@ -49,11 +49,12 @@ public class TelaSimulacao extends JPanel {
 	
 	
 	ClienteVO cliente = new ClienteVO();
+	ClienteController clienteControler = new ClienteController();
 	SimulacaoVO simula = new SimulacaoVO();
 	SimulacaoController simulaControl = new SimulacaoController();
 	private List<ClienteVO> ListarTodosClientes;
 	VendedorVO vendedor = new VendedorVO();
-	ClienteController clienteControler = new ClienteController();
+	
 	ContratoController contratoControler = new ContratoController();
 	ContratoVO contrato = new ContratoVO();
 	private JLabel lblValorJuros;
