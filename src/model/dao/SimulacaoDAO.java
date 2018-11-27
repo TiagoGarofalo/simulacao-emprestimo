@@ -22,21 +22,24 @@ public class SimulacaoDAO {
 	*/
 	public SimulacaoVO inserir(SimulacaoVO s,ClienteVO c,VendedorVO v,ContratoVO contrato){
 		
-	        String sql = " INSERT INTO SIMULACAO (IDVENDEDOR, IDCLIENTE, IDCONTRATO,  DTSIMULACAO, "
-	        		+ "VALORCONT, NUMPARCELA, NUNCONT, VALORPARCELA, DTVALIDADE) "
-					+ " VALUES (?,?,?,?,?,?,?,?,?) ";
+				
+		
+		
+	        String sql = " INSERT INTO SIMULACAO (ID_CLIENTE, ID_VENDEDOR, ID_CONTRATO,  "
+	        		+ "DTINICIO, DTFINAL, VALORPARCELA,"
+	        		+ "QNTPARCERLAS"
+					+ " VALUES (?,?,?,?,?,?,?) ";
 	        Connection conexao = ConexaoBanco.getConnection();
 			PreparedStatement prepStmt = ConexaoBanco.getPreparedStatement(conexao, sql);
 			try {
-				prepStmt.setInt(1, v.getId());
-				prepStmt.setInt(2, c.getId());
+				prepStmt.setInt(1, c.getId());
+				prepStmt.setInt(2, v.getId());
 				prepStmt.setInt(3, contrato.getId());
-				prepStmt.setDate(4, (Date) s.getDtsimulacao());
-				prepStmt.setDouble(5, s.getValorCont());
-				prepStmt.setDouble(6, s.getNumParcela());
-				prepStmt.setLong(7, s.getNumCont());
-				prepStmt.setDouble(8, s.getValorParcela());
-				prepStmt.setDate(9, (Date) s.getDtValidade());
+				prepStmt.setDate(4, new Date(s.getDtsimulacao().getTime()));
+				prepStmt.setDate(5, new Date(s.getDtValidade().getTime()));
+				prepStmt.setDouble(6, s.getValorParcela());
+				prepStmt.setDouble(7, s.getNumParcela());
+						
 				//TODO preencher o restante
 		
 				prepStmt.execute();
@@ -55,7 +58,9 @@ public class SimulacaoDAO {
 	/***	int novoId = -1;
 		//
 
-		String sql = " INSERT INTO SIMULACAO (NOME, EMAIL, CPF, DTSIMULACAO,VALORCONT, NUMPARCELA, NUNCONT,VALORPARCELA,DTVALIDADE) "
+		String sql = " INSERT INTO SIMULACAO (NOME, EMAIL, CPF, DTSIMULACAO,
+		VALORCONT, NUMPARCELA, NUNCONT,
+		VALORPARCELA,DTVALIDADE) "
 				+ " VALUES (?,?,?,?,?,?,?,?,?) ";
 
 		Connection conexao = Banco.getConnection();
@@ -93,7 +98,9 @@ public class SimulacaoDAO {
 	public boolean atualizar(SimulacaoVO a){
 		boolean sucessoUpdate = false;
 
-		String sql = " UPDATE SIMULACAO P SET ID_SIMULACAO=?,EMAIL=?, CPF=?, DTSIMULACAO=?,VALORCONT=?, NUMPARCELA=?, NUNCONT=?,VALORPARCELA=?,DTVALIDADE=? "
+		String sql = " UPDATE SIMULACAO P SET ID_SIMULACAO=?,EMAIL=?, CPF=?, "
+				+ "DTSIMULACAO=?,VALORCONT=?, NUMPARCELA=?, NUNCONT=?,"
+				+ "VALORPARCELA=?,DTVALIDADE=? "
 				         + " WHERE P.ID = ? ";
 
 		Connection conexao = ConexaoBanco.getConnection();

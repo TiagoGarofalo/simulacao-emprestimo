@@ -46,6 +46,8 @@ public class TelaSimulacao extends JPanel {
 	private JLabel lbInserirValorParcela;
 	private JLabel lbInserirDtSimulacao;
 	private JLabel lbInserirDtValidade;
+	
+	
 	ClienteVO cliente = new ClienteVO();
 	SimulacaoVO simula = new SimulacaoVO();
 	SimulacaoController simulaControl = new SimulacaoController();
@@ -127,13 +129,13 @@ public class TelaSimulacao extends JPanel {
 		txParcelas.setColumns(10);
 
 		lbInserirNumCont = new JLabel("N\u00B0 Contrato: ");
-		lbInserirNumCont.setBounds(87, 11, 89, 14);
+		lbInserirNumCont.setBounds(87, 11, 107, 14);
 		// contentPane.add(lbInserirNumCont);
 		add(lbInserirNumCont);
 
 		Date numCont = new Date();
 		SimpleDateFormat formatNum = new SimpleDateFormat("yyyyMMdd");
-		int acumulador = 0;
+		int acumulador = 10;
 		String.format("%05d", acumulador);
 		lbInserirNumCont.setText(formatNum.format(numCont) + String.format("%06d", acumulador));
 
@@ -149,7 +151,7 @@ public class TelaSimulacao extends JPanel {
 
 		Date dataSimulacao = new Date();
 		SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yy");
-		lbInserirDtSimulacao.setText("Data Simulação: " + formatDate.format(dataSimulacao));
+		lbInserirDtSimulacao.setText("26/11/18");
 
 		lbInserirDtValidade = new JLabel("Validade Simula\u00E7\u00E3o: ");
 		lbInserirDtValidade.setBounds(395, 11, 178, 14);
@@ -160,7 +162,7 @@ public class TelaSimulacao extends JPanel {
 		GregorianCalendar dataValidade = new GregorianCalendar();
 		dataValidade.add(Calendar.DAY_OF_MONTH, 30);
 		Date dataV = dataValidade.getTime();
-		lbInserirDtValidade.setText("Validade simulação: " + formatValidade.format(dataV));
+		lbInserirDtValidade.setText("26/11/18");
 
 		JSeparator separator = new JSeparator();
 		separator.setBounds(8, 33, 566, 2);
@@ -182,16 +184,17 @@ public class TelaSimulacao extends JPanel {
 					double juros = simulaControl.calculaJuros(novaSimula);
 					lblValorJuros.setText(juros + "");
 					double valorP = simulaControl.calculaValorParc(novaSimula);
-					DecimalFormat numf = new DecimalFormat("#,###.00");
-					lbInserirValorParcela.setText(numf.format(valorP));
+					//DecimalFormat numf = new DecimalFormat("##.###,##");
+					lbInserirValorParcela.setText(valorP+"");
 
 					JOptionPane.showMessageDialog(null,
 							"Simulação: " + "Nome do cliente:" + cliente.getNome() + "Data da simulação:"
 									+ formatValidade.format(dataV) + "Nome do vendedor:" + vendedor.getNome()
 									+ "Valor do financiamento:" + txValorCont.getText() + "Taxa de juros:"
 									+ "Numeros de parcelas:" + "Valor do juros:" + "Toital do emprestimo: ");
-
-				}
+					
+				
+									}
 
 			}
 		});
@@ -212,8 +215,8 @@ public class TelaSimulacao extends JPanel {
 					double juros = simulaControl.calculaJuros(novaSimula);
 					lblValorJuros.setText(juros + "");
 					double valorP = simulaControl.calculaValorParc(novaSimula);
-					DecimalFormat numf = new DecimalFormat("#,###.00");
-					lbInserirValorParcela.setText(numf.format(valorP));
+				//	DecimalFormat numf = new DecimalFormat("##.###,##");
+					lbInserirValorParcela.setText(valorP+"");
 				}
 			}
 
@@ -243,31 +246,23 @@ public class TelaSimulacao extends JPanel {
 
 				if (clienteControler.ValidaCPF(txCPF.getText()) == true) {
 
-					try {
+				//	try {
+						
 						cliente.setNome(txNome.getText());
 						cliente.setEmail(txEmail.getText());
 						cliente.setCpf(txCPF.getText());
 
-						contrato.setNumContrato(lbInserirNumCont + "");
+						clienteControler.salvar(cliente);
+						contrato.setNumContrato(lbInserirNumCont.getText() + "");
 						contrato.setNumParcela(Integer.parseInt(txParcelas.getText()));
 						contrato.setValorContrato(Double.parseDouble(txValorCont.getText()));
 
 						contratoControler.salvarContrato(contrato);
-						/*simula.setValorCont(Double.parseDouble(txValorCont.getText()));
-						simula.setNumParcela(Integer.parseInt(txParcelas.getText()));
-						simula.setNumCont(Long.valueOf(formatNum.format(numCont) + String.format("%06d", acumulador)));
-						simula.setValorParcela(Double.parseDouble(lbInserirValorParcela.getText()));
-						simula.setDtsimulacao(dataSimulacao);
-						simula.setDtValidade(dataV);
-
-						simulaControl.salvarSimula(simula, cliente, vendedor, contrato);*/
-
-						clienteControler.salvar(cliente);
 						JOptionPane.showMessageDialog(null, "Salvo com sucesso");
 
-					} catch (Exception e) {
+			//		} catch (Exception e) {
 						System.out.println("campos não preenchidos");
-					}
+				//	}
 
 				} else {
 					System.out.printf("Erro, CPF invalido !!!\n");

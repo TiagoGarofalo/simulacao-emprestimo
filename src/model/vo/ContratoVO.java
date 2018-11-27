@@ -6,6 +6,7 @@ public class ContratoVO {
 	private Double valorContrato;
 	private int numParcela;
 
+
 	public ContratoVO() {
 		super();
 
