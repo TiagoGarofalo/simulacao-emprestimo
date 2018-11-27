@@ -12,6 +12,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TelaPrincipal extends JFrame {
 
@@ -27,6 +29,7 @@ public class TelaPrincipal extends JFrame {
 					TelaPrincipal frame = new TelaPrincipal();
 					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 					frame.setVisible(true);
+					frame.setResizable(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -78,49 +81,64 @@ public class TelaPrincipal extends JFrame {
 		mntmPesquisar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/lupa.png")));
 		mntmPesquisar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0));
 		mnEmprestimo.add(mntmPesquisar);
-		
-				JMenu mnCadastrarVendedor = new JMenu("Cadastrar Vendedor");
-				mnCadastrarVendedor.setIcon(
-						new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-usu\u00E1rio.png")));
-				menuBar.add(mnCadastrarVendedor);
-				
-						JMenuItem mntmCadastrarVendedor = new JMenuItem("Cadastrar Vendedor");
-						mntmCadastrarVendedor.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0));
-						mntmCadastrarVendedor.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent arg0) {
-								TelaCadastroVendedor vendedor = new TelaCadastroVendedor();
-								setContentPane(vendedor);
-								vendedor.updateUI();
-							}
-						});
-						
-								mntmCadastrarVendedor.setIcon(
-										new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-adicionar-usu\u00E1rio-masculino.png")));
-								mnCadastrarVendedor.add(mntmCadastrarVendedor);
-								
-										JMenu mnSobre = new JMenu("sobre");
-										mnSobre.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-card\u00E1pio.png")));
-										menuBar.add(mnSobre);
-										
-												JMenuItem mntmTaxasDeJuros = new JMenuItem("Taxas de juros");
-												mntmTaxasDeJuros.addActionListener(new ActionListener() {
-													public void actionPerformed(ActionEvent e) {
-														TelaJuros juros = new TelaJuros();
-														setContentPane(juros);
-													}
-												});
-												mntmTaxasDeJuros
-														.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-gr\u00E1fico-combinado.png")));
-												mnSobre.add(mntmTaxasDeJuros);
-												
-														JMenuItem mntmSoftware = new JMenuItem("Software");
-														mntmSoftware.addActionListener(new ActionListener() {
-															public void actionPerformed(ActionEvent e) {
-																PainelSobre sobre = new PainelSobre();
-																setContentPane(sobre);
-															}
-														});
-														mntmSoftware.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-molho-de-chaves.png")));
-														mnSobre.add(mntmSoftware);
+
+		JMenu mnCadastrarVendedor = new JMenu("Cadastrar Vendedor");
+		mnCadastrarVendedor.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-usu\u00E1rio.png")));
+		menuBar.add(mnCadastrarVendedor);
+
+		JMenuItem mntmCadastrarVendedor = new JMenuItem("Cadastrar Vendedor");
+		mntmCadastrarVendedor.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0));
+		mntmCadastrarVendedor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaCadastroVendedor vendedor = new TelaCadastroVendedor();
+				setContentPane(vendedor);
+				vendedor.updateUI();
+			}
+		});
+
+		mntmCadastrarVendedor.setIcon(
+				new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-adicionar-usu\u00E1rio-masculino.png")));
+		mnCadastrarVendedor.add(mntmCadastrarVendedor);
+
+		JMenu mnSobre = new JMenu("sobre");
+		mnSobre.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-card\u00E1pio.png")));
+		menuBar.add(mnSobre);
+
+		JMenuItem mntmTaxasDeJuros = new JMenuItem("Taxas de juros");
+		mntmTaxasDeJuros.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaJuros juros = new TelaJuros();
+				setContentPane(juros);
+			}
+		});
+		mntmTaxasDeJuros
+				.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-gr\u00E1fico-combinado.png")));
+		mnSobre.add(mntmTaxasDeJuros);
+
+		JMenuItem mntmSoftware = new JMenuItem("Software");
+		mntmSoftware.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaPainelSobre sobre = new TelaPainelSobre();
+				setContentPane(sobre);
+			}
+		});
+		mntmSoftware.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-molho-de-chaves.png")));
+		mnSobre.add(mntmSoftware);
+
+		JMenu mnLogout = new JMenu("Logout");
+		mnLogout.setSelectedIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-gest\u00E3o-de-cliente.png")));
+		menuBar.add(mnLogout);
+
+		JMenuItem mntmSair = new JMenuItem("Sair");
+		mntmSair.setSelectedIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-molho-de-chaves.png")));
+		mntmSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaLogin tela = new TelaLogin();
+				dispose();
+				tela.setVisible(true);
+			}
+		});
+
+		mnLogout.add(mntmSair);
 	}
 }

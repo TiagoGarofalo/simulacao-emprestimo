@@ -253,11 +253,11 @@ public class TelaSimulacao extends JPanel {
 
 				//try {
 						
-						cliente.setNome(txNome.getText());
+						/**cliente.setNome(txNome.getText());
 						cliente.setEmail(txEmail.getText());
 						cliente.setCpf(txCPF.getText());
 						clienteControler.salvar(cliente);					
-						
+						**/
 						
 						contrato.setNumContrato(lbInserirNumCont.getText() + "");
 						contrato.setNumParcela(Integer.parseInt(txParcelas.getText()));
@@ -312,6 +312,17 @@ public class TelaSimulacao extends JPanel {
 		JLabel lblValorTotalCom = new JLabel("Valor Total Com Juros : ");
 		lblValorTotalCom.setBounds(291, 225, 130, 14);
 		add(lblValorTotalCom);
+		
+		JButton btnNewButton = new JButton("Cadastrar Cliente");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroCliente telaCliente = new TelaCadastroCliente();
+				telaCliente.setVisible(true);
+				
+			}
+		});
+		btnNewButton.setBounds(273, 78, 130, 55);
+		add(btnNewButton);
 		
 	
 	}

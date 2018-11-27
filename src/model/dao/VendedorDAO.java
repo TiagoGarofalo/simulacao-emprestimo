@@ -2,12 +2,17 @@ package model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.naming.spi.DirStateFactory.Result;
 
 import model.vo.VendedorVO;
 
 public class VendedorDAO {
 
+	VendedorVO vendedor = new VendedorVO();
+	
 	public boolean insert(VendedorVO vendedor) {
 		Connection conn = ConexaoBanco.getConnection();
 		try {
@@ -84,5 +89,29 @@ public class VendedorDAO {
 		return false;
 
 	}
+	public boolean fazerLogin(String cpf , String senha) {
+		
+		Connection conn = ConexaoBanco.getConnection();
+		try {
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM VENDEDOR WHERE CPFVENDEDOR=? AND SENHA=?");
+			ps.setString(1, vendedor.getCpf());
+			ps.setString(2, vendedor.getSenha());
+		
+			
+			ps.execute();
+
+			ps.close();
+			conn.close();
+			return true;
+			
+		} catch (SQLException e) {
+			
+		
+				}
+		return false;
+		
+		
+	}
+	
 
 }

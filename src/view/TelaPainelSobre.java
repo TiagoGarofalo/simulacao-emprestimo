@@ -6,12 +6,12 @@ import javax.swing.JTextArea;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextPane;
 
-public class PainelSobre extends JPanel {
+public class TelaPainelSobre extends JPanel {
 
 	/**
 	 * Create the panel.
 	 */
-	public PainelSobre() {
+	public TelaPainelSobre() {
 		setLayout(null);
 
 		JTextPane txtpnSoftwareDesenvolvidoPara = new JTextPane();
