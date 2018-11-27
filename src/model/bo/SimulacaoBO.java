@@ -18,12 +18,12 @@ public class SimulacaoBO {
 		double juros = 0;
 		double jurosP = 0;
 		double jurosV = 0;
-		if (simula.getValorCont() <= 1000) {
+		if (simula.getValor_contrato() <= 1000) {
 			jurosV = 1.8;
 		} else {
 			jurosV = 3;}
 		
-		if (simula.getNumParcela() > 12) {
+		if (simula.getNum_parcelas() > 12) {
 			jurosP = 0.5;
 		} else {
 			jurosP = 0;}
@@ -37,19 +37,19 @@ public class SimulacaoBO {
 		double juros = 0;
 		double jurosP = 0;
 		double jurosV = 0;
-		if (simula.getValorCont() <= 1000) {
+		if (simula.getValor_contrato() <= 1000) {
 			jurosV = 1.8;
 		} else {
 			jurosV = 3;}
 		
-		if (simula.getNumParcela() > 12) {
+		if (simula.getNum_parcelas() > 12) {
 			jurosP = 0.5;
 		} else {
 			jurosP = 0;}
 
 		juros = jurosV + jurosP;
 		
-		double valorP = (simula.getValorCont() * (1+(simula.getNumParcela()*(juros/100))))/simula.getNumParcela();
+		double valorP = (simula.getValor_contrato() * (1+(simula.getNum_parcelas()*(juros/100))))/simula.getNum_parcelas();
 		
 		return valorP;
 	}
@@ -111,9 +111,9 @@ public class SimulacaoBO {
 		return simula;
 	}
 
-	public SimulacaoVO salvarSimulacao(SimulacaoVO s,ClienteVO c,VendedorVO v,ContratoVO contrato) {
+	public SimulacaoVO salvarSimulacao(SimulacaoVO s,ClienteVO c,ContratoVO contrato) {
 		
-		return dao.inserir(s,c,v,contrato);
+		return dao.inserir(s,c,contrato);
 	}
 	
 }

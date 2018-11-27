@@ -183,8 +183,8 @@ public class TelaListaSimulacao extends JPanel {
 			// Crio uma nova linha na tabela
 			// Preencher a linha com os atributos do contrato
 			// na ORDEM do cabeçalho da tabela
-			Object[] novaLinha = new Object[] { simula.getNumCont(), simula.getNome(), simula.getCpf(),
-					simula.getValorCont(), simula.getDtValidade() };
+			Object[] novaLinha = new Object[] { simula.getNumero_Contrato(), simula.getNome_Cliente(),
+					simula.getNumero_Contrato(), simula.getDt_inicio() };
 			modelo.addRow(novaLinha);
 		}
 

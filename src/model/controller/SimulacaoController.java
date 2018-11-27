@@ -29,9 +29,9 @@ public class SimulacaoController {
 		return bo.listarSimulacoes(numContrato, cpfCliente);
 	}
 
-	public SimulacaoVO salvarSimula(SimulacaoVO s,ClienteVO c,VendedorVO v,ContratoVO contrato) {
+	public SimulacaoVO salvarSimula(SimulacaoVO s,ClienteVO c,ContratoVO contrato) {
 
-		return bo.salvarSimulacao(s,c,v,contrato);
+		return bo.salvarSimulacao(s,c,contrato);
 
 	}
 

@@ -11,7 +11,7 @@ public class VendedorDAO {
 	public boolean insert(VendedorVO vendedor) {
 		Connection conn = ConexaoBanco.getConnection();
 		try {
-			PreparedStatement ps = conn.prepareStatement("INSERT INTO vendedor " + "(nome, CPFVENDEDOR, email, senha) " + "VALUES (?, ?, ?, ?)");
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO vendedor " + "(nome_vendedor, CPFVENDEDOR, email, senha) " + "VALUES (?, ?, ?, ?)");
 			ps.setString(1, vendedor.getNome());
 			ps.setString(2, vendedor.getCpf());
 			ps.setString(3, vendedor.getEmail());

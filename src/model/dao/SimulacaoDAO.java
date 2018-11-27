@@ -20,39 +20,38 @@ public class SimulacaoDAO {
 	* @return id caso positivo, é a chave gerada pelo SGBD
 	* 			  caso -1, houve erro no INSERT
 	*/
-	public SimulacaoVO inserir(SimulacaoVO s,ClienteVO c,VendedorVO v,ContratoVO contrato){
+	public SimulacaoVO inserir(SimulacaoVO simulacao,ClienteVO cliente,ContratoVO contrato){
 		
 				
 		
 		
-	        String sql = " INSERT INTO SIMULACAO (ID_CLIENTE, ID_VENDEDOR, ID_CONTRATO,  "
-	        		+ "DTINICIO, DTFINAL, VALORPARCELA,"
-	        		+ "QNTPARCERLAS"
-					+ " VALUES (?,?,?,?,?,?,?) ";
+	        String sql = " INSERT INTO SIMULACAO (nome_cliente,numero_contrato,valor_parcela,num_parcelas,valor_contrato,taxa_juros,valo_total_contrato) VALUES (?,?,?,?,?,?,?)";
 	        Connection conexao = ConexaoBanco.getConnection();
 			PreparedStatement prepStmt = ConexaoBanco.getPreparedStatement(conexao, sql);
 			try {
-				prepStmt.setInt(1, c.getId());
-				prepStmt.setInt(2, v.getId());
-				prepStmt.setInt(3, contrato.getId());
-				prepStmt.setDate(4, new Date(s.getDtsimulacao().getTime()));
-				prepStmt.setDate(5, new Date(s.getDtValidade().getTime()));
-				prepStmt.setDouble(6, s.getValorParcela());
-				prepStmt.setDouble(7, s.getNumParcela());
+				prepStmt.setString(1, cliente.getNome());
+			//prepStmt.setString(2, vendedor.getNome());
+				prepStmt.setString(2, contrato.getNumContrato());
+				//prepStmt.setDate(4, new Date(simulacao.getDt_inicio().getTime()));
+				//prepStmt.setDate(5, new Date(simulacao.getDt_final().getTime()));
+				prepStmt.setDouble(3, simulacao.getValor_parcela());
+				prepStmt.setDouble(4, simulacao.getNum_parcelas());
+				prepStmt.setDouble(5, simulacao.getValor_contrato());
+				prepStmt.setDouble(6, simulacao.getTaxa_juros());
+				prepStmt.setDouble(7, simulacao.getValor_Total_Contrato());
+				
 						
 				//TODO preencher o restante
 		
 				prepStmt.execute();
-
-				ResultSet generatedKeys = prepStmt.getGeneratedKeys();
 		
 			} catch (SQLException e) {
-				System.out.println("Erro ao inserir aluno. Causa: \n:" + e.getMessage());
+				System.out.println("ao salar simulacao: \n:" + e.getMessage());
 			} finally{
 				ConexaoBanco.closePreparedStatement(prepStmt);
 				ConexaoBanco.closeConnection(conexao);
 			}
-	    return s;
+	    return simulacao;
 }
 	
 	/***	int novoId = -1;
@@ -95,7 +94,7 @@ public class SimulacaoDAO {
 		return novoId;
 	}***/
 
-	public boolean atualizar(SimulacaoVO a){
+	public boolean atualizar(SimulacaoVO simulacao,ClienteVO cliente,ContratoVO contrato){
 		boolean sucessoUpdate = false;
 
 		String sql = " UPDATE SIMULACAO P SET ID_SIMULACAO=?,EMAIL=?, CPF=?, "
@@ -107,15 +106,16 @@ public class SimulacaoDAO {
 		PreparedStatement prepStmt = ConexaoBanco.getPreparedStatement(conexao, sql);
 
 		try {
-			prepStmt.setString(1, a.getNome());
-			prepStmt.setString(2, a.getEmail());
-			prepStmt.setString(3, a.getCpf());		
-			prepStmt.setDate(4, (Date) a.getDtsimulacao());
-			prepStmt.setDouble(5, a.getValorCont());
-			prepStmt.setDouble(6, a.getNumParcela());
-			prepStmt.setLong(7, a.getNumCont());
-			prepStmt.setDouble(8, a.getValorParcela());
-			prepStmt.setDate(9, (Date) a.getDtValidade());
+			prepStmt.setString(1, cliente.getNome());
+			//prepStmt.setString(2, vendedor.getNome());
+			prepStmt.setString(3, contrato.getNumContrato());
+			//	prepStmt.setDate(4, new Date(simulacao.getDt_inicio().getTime()));
+			//prepStmt.setDate(5, new Date(simulacao.getDt_final().getTime()));
+			prepStmt.setDouble(6, simulacao.getValor_parcela());
+			prepStmt.setDouble(7, simulacao.getNum_parcelas());
+			prepStmt.setDouble(8, simulacao.getValor_contrato());
+			prepStmt.setDouble(9,simulacao.getTaxa_juros());
+			prepStmt.setDouble(10,simulacao.getValor_Total_Contrato());
 			
 			int codigoRetorno = prepStmt.executeUpdate();
 
