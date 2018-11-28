@@ -62,12 +62,6 @@ public class TelaLogin extends JFrame {
 		// criação do usuario admin
 		
 		
-		vendedor.setCpf("07179591980");
-		vendedor.setSenha("123456");
-		vendedor.setNome("paulo");
-		vendedor.setEmail("paulo@paulo.com");
-		VendedorDAO vendedordao = new VendedorDAO();
-		vendedordao.insert(vendedor);
 		
 		JLabel lblLogin = new JLabel("Login");
 		lblLogin.setBounds(124, 73, 46, 14);
@@ -88,21 +82,21 @@ public class TelaLogin extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				
-				String login, senha;
-				login = txtLogin.getText();
-				senha = txtsenha.getText();		
+										
+					
+					VendedorDAO dao = new VendedorDAO();
+					
+					if (dao.fazerLogin(txtLogin.getText(),txtsenha.getText())== true) {
+						TelaPrincipal inicio = new TelaPrincipal();
+						inicio.setExtendedState(JFrame.MAXIMIZED_BOTH);
+						inicio.setVisible(true);
+						JOptionPane.showMessageDialog(null,"bem Vindo!");
+						dispose();
+					} else {
+						JOptionPane.showMessageDialog(rootPane, "senha ou usuario invalidos");
+					}
+			
 				
-				
-				VendedorDAO dao = new VendedorDAO();
-				
-				if (dao.fazerLogin(login, senha)) {
-					TelaPrincipal inicio = new TelaPrincipal();
-					inicio.setExtendedState(JFrame.MAXIMIZED_BOTH);
-					inicio.setVisible(true);
-					dispose();
-				} else {
-					JOptionPane.showMessageDialog(rootPane, "senha ou usuario invalidos");
-				}
 
 			}
 		});

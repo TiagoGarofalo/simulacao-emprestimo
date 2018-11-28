@@ -126,11 +126,11 @@ public class TelaPrincipal extends JFrame {
 		mnSobre.add(mntmSoftware);
 
 		JMenu mnLogout = new JMenu("Logout");
-		mnLogout.setSelectedIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-gest\u00E3o-de-cliente.png")));
+		mnLogout.setSelectedIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/image/Abort.png")));
 		menuBar.add(mnLogout);
 
 		JMenuItem mntmSair = new JMenuItem("Sair");
-		mntmSair.setSelectedIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-molho-de-chaves.png")));
+		mntmSair.setSelectedIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/image/Alert.png")));
 		mntmSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TelaLogin tela = new TelaLogin();

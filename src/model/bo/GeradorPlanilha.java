@@ -51,11 +51,10 @@ public class GeradorPlanilha {
 		for (SimulacaoVO simul : simulacoes) {
 			Row novaLinha = abaPlanilha.createRow(rowNum++);
 			
-			novaLinha.createCell(0).setCellValue(simul.getNumCont());
-			novaLinha.createCell(1).setCellValue(simul.getNome());
-			novaLinha.createCell(2).setCellValue(simul.getCpf());
-			novaLinha.createCell(3).setCellValue(simul.getValorCont());
-			novaLinha.createCell(4).setCellValue(simul.getDtValidade());
+			novaLinha.createCell(0).setCellValue(simul.getNumero_Contrato());
+			novaLinha.createCell(1).setCellValue(simul.getNome_Cliente());
+			novaLinha.createCell(2).setCellValue(simul.getValor_contrato());
+	
 		}
 
 		// 4) Ajusta o tamanho de todas as colunas conforme a largura do

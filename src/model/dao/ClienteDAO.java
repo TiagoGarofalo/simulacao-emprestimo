@@ -67,9 +67,12 @@ public class ClienteDAO {
 	}
 
 	public boolean delete(String cpf) {
-		Connection conn = ConexaoBanco.getConnection();
 		try {
-			PreparedStatement ps = conn.prepareStatement("DELETE FROM cliente " + "WHERE cpf = ?");
+			Connection conn = ConexaoBanco.getConnection();
+			String sql = " DELETE FROM cliente WHERE CPFcliente = ? ";
+
+			PreparedStatement ps = ConexaoBanco.getPreparedStatement(conn, sql);
+
 			ps.setString(1, cpf);
 
 			ps.execute();
@@ -82,6 +85,7 @@ public class ClienteDAO {
 			ex.printStackTrace();
 		}
 		return false;
+
 	}
 	public ArrayList<ClienteVO> listarTodos() {
 		

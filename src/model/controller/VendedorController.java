@@ -1,6 +1,9 @@
 package model.controller;
 
+import java.util.List;
+
 import model.bo.VendedorBO;
+import model.dao.VendedorDAO;
 import model.vo.VendedorVO;
 
 public class VendedorController {
@@ -21,5 +24,15 @@ public class VendedorController {
 	public boolean ValidaCPF(String cpf) {
 
 		return bo.isCPF(cpf);
+	}
+
+	public static List<VendedorVO> ListarTodosClientes() {
+		VendedorBO bo = new VendedorBO();
+		return bo.Listartodos();
+	}
+
+	public boolean verificarexist(VendedorVO novoVendedor) {
+		VendedorDAO dao = new VendedorDAO();
+		return (boolean) dao.verificarexist(novoVendedor);
 	}
 }

@@ -1,9 +1,11 @@
 package model.bo;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
-
+import java.util.List;
 
 import model.dao.VendedorDAO;
+import model.vo.ClienteVO;
 import model.vo.VendedorVO;
 
 public class VendedorBO {
@@ -75,4 +77,10 @@ public class VendedorBO {
             return(CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "." +
             CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
         }
+
+		public List<VendedorVO> Listartodos() {
+			VendedorDAO dao = new VendedorDAO();
+			ArrayList<VendedorVO> vendedores= dao.listarTodos();
+			return vendedores;
+		}
     }

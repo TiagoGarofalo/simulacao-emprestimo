@@ -115,8 +115,8 @@ public class TelaListaSimulacao extends JPanel {
 
 		tblSimulacao = new JTable();
 		tblSimulacao
-				.setModel(new DefaultTableModel(new Object[][] { { "Contrato", "Nome", "CPF", "Valor", "Validade" }, },
-						new String[] { "Contrato", "Nome", "CPF", "Valor", "Validade" }));
+				.setModel(new DefaultTableModel(new Object[][] { {"Contrato", "Nome", "Valor", "num Parcelas"  }, },
+						new String[] { "Contrato", "Nome", "Valor", "num Parcelas"  }));
 		tblSimulacao.getColumnModel().getColumn(0).setPreferredWidth(104);
 		tblSimulacao.getColumnModel().getColumn(1).setPreferredWidth(163);
 		tblSimulacao.getColumnModel().getColumn(2).setPreferredWidth(123);
@@ -175,7 +175,7 @@ public class TelaListaSimulacao extends JPanel {
 	protected void atualizarTabelaSimulacoes(List<SimulacaoVO> simulacoes) {
 		// Limpa a tabela
 		tblSimulacao.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Contrato", "Nome", "CPF", "Valor", "Validade" }));
+				new String[] { "Contrato", "Nome", "Valor", "num Parcelas" }));
 
 		DefaultTableModel modelo = (DefaultTableModel) tblSimulacao.getModel();
 
@@ -184,7 +184,7 @@ public class TelaListaSimulacao extends JPanel {
 			// Preencher a linha com os atributos do contrato
 			// na ORDEM do cabeçalho da tabela
 			Object[] novaLinha = new Object[] { simula.getNumero_Contrato(), simula.getNome_Cliente(),
-					simula.getNumero_Contrato(), simula.getDt_inicio() };
+					simula.getValor_contrato(), simula.getNum_parcelas() };
 			modelo.addRow(novaLinha);
 		}
 

@@ -9,15 +9,7 @@ public class ContratoVO {
 
 
 
-	public double getValotTotalContrato() {
-		return valotTotalContrato;
-	}
-
-
-
-	public void setValotTotalContrato(double valotTotalContrato) {
-		this.valotTotalContrato = valotTotalContrato;
-	}
+	
 
 
 
@@ -37,7 +29,15 @@ public class ContratoVO {
 		// TODO Auto-generated constructor stub
 	}
 
+	public double getValotTotalContrato() {
+		return valotTotalContrato;
+	}
 
+
+
+	public void setValotTotalContrato(double valotTotalContrato) {
+		this.valotTotalContrato = valotTotalContrato;
+	}
 
 	public int getId() {
 		return id;

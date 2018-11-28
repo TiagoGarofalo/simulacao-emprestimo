@@ -9,7 +9,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import model.controller.ClienteController;
+import model.controller.VendedorController;
 import model.vo.ClienteVO;
+import model.vo.VendedorVO;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -24,6 +26,8 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import java.awt.Font;
 
 public class TelaCadastroCliente extends JFrame {
 
@@ -65,25 +69,25 @@ public class TelaCadastroCliente extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit()
 				.getImage(TelaCadastroCliente.class.getResource("/icones/icons8-usu\u00E1rio.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 603, 421);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JLabel lblnome = new JLabel("Nome :");
-		lblnome.setBounds(42, 27, 46, 14);
+		lblnome.setBounds(42, 69, 46, 14);
 		contentPane.add(lblnome);
 
 		lblcpf = new JLabel("CPF :");
-		lblcpf.setBounds(42, 52, 46, 14);
+		lblcpf.setBounds(42, 94, 46, 14);
 		contentPane.add(lblcpf);
 
 		JLabel lblemail = new JLabel("E-mail:");
-		lblemail.setBounds(42, 77, 46, 14);
+		lblemail.setBounds(42, 119, 46, 14);
 		contentPane.add(lblemail);
 
-		JButton btnCadastrar = new JButton("Salvar Cliente");
+		JButton btnCadastrar = new JButton("Salvar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -111,42 +115,74 @@ public class TelaCadastroCliente extends JFrame {
 
 			}
 		});
-		btnCadastrar.setBounds(42, 102, 134, 23);
+		btnCadastrar.setBounds(168, 144, 94, 23);
 		contentPane.add(btnCadastrar);
 
 		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(314, 227, 89, 23);
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				if (clienteControler.ValidaCPF(txtCPF.getText()) == true) {
+					try {
+
+						clienteControler.deletar(txtCPF.getText());
+						JOptionPane.showMessageDialog(null, "Excluido com sucesso");
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null, "Preencha os campos!!");
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(null, "CPF invalido");
+				}
+				
+					}
+		});
+		btnExcluir.setBounds(488, 348, 89, 23);
 		contentPane.add(btnExcluir);
 
 		txtNome = new JTextField();
-		txtNome.setBounds(98, 24, 164, 20);
+		txtNome.setBounds(98, 66, 164, 20);
 		contentPane.add(txtNome);
 		txtNome.setColumns(10);
 
 		txtCPF = new JTextField();
-		txtCPF.setBounds(98, 49, 117, 20);
+		txtCPF.setBounds(98, 91, 164, 20);
 		contentPane.add(txtCPF);
 		txtCPF.setColumns(10);
 
 		txtemail = new JTextField();
-		txtemail.setBounds(98, 74, 164, 20);
+		txtemail.setBounds(98, 116, 164, 20);
 		contentPane.add(txtemail);
 		txtemail.setColumns(10);
 		
-		tblClientes = new JTable();
-		tblClientes.setBounds(42, 136, 342, 82);
-		contentPane.add(tblClientes);
-		
-		btnAtualizrLista = new JButton("Atualizr lista");
+		btnAtualizrLista = new JButton("Atualizar");
 		btnAtualizrLista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				List<ClienteVO> clientes = clienteControler.ListarTodosClientes();
+				List<ClienteVO> clientes= clienteControler.ListarTodosClientes();
 				atualizarTabelaClientes(clientes);
 				
 			}
 		});
-		btnAtualizrLista.setBounds(197, 227, 107, 23);
+		btnAtualizrLista.setBounds(371, 348, 107, 23);
 		contentPane.add(btnAtualizrLista);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(42, 226, 520, 111);
+		contentPane.add(scrollPane);
+		scrollPane.setViewportView(tblClientes);
+		
+		tblClientes = new JTable();
+		scrollPane.setViewportView(tblClientes);
+		
+		JLabel lblListaDeClientes = new JLabel("Lista de Clientes:");
+		lblListaDeClientes.setFont(new Font("Arial Black", Font.PLAIN, 20));
+		lblListaDeClientes.setBounds(42, 168, 201, 47);
+		contentPane.add(lblListaDeClientes);
+		
+		JLabel lblNewLabel = new JLabel("Cadastrar Cliente :");
+		lblNewLabel.setFont(new Font("Arial Black", Font.PLAIN, 20));
+		lblNewLabel.setBounds(42, 11, 220, 47);
+		contentPane.add(lblNewLabel);
 	}
 	protected void atualizarTabelaClientes(List<ClienteVO> clientes) {
 		// atualiza o atributo produtosConsultados

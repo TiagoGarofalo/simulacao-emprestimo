@@ -4,19 +4,22 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.naming.spi.DirStateFactory.Result;
 
+import model.vo.ClienteVO;
 import model.vo.VendedorVO;
 
 public class VendedorDAO {
 
 	VendedorVO vendedor = new VendedorVO();
-	
+
 	public boolean insert(VendedorVO vendedor) {
 		Connection conn = ConexaoBanco.getConnection();
 		try {
-			PreparedStatement ps = conn.prepareStatement("INSERT INTO vendedor " + "(nome_vendedor, CPFVENDEDOR, email, senha) " + "VALUES (?, ?, ?, ?)");
+			PreparedStatement ps = conn.prepareStatement(
+					"INSERT INTO vendedor " + "(nome_vendedor, CPFVENDEDOR, email, senha) " + "VALUES (?, ?, ?, ?)");
 			ps.setString(1, vendedor.getNome());
 			ps.setString(2, vendedor.getCpf());
 			ps.setString(3, vendedor.getEmail());
@@ -89,29 +92,95 @@ public class VendedorDAO {
 		return false;
 
 	}
-	public boolean fazerLogin(String cpf , String senha) {
-		
+
+	public boolean fazerLogin(String nome, String senha) {
+
 		Connection conn = ConexaoBanco.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
 		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM VENDEDOR WHERE CPFVENDEDOR=? AND SENHA=?");
-			ps.setString(1, vendedor.getCpf());
-			ps.setString(2, vendedor.getSenha());
-		
-			
-			ps.execute();
 
-			ps.close();
-			conn.close();
+			stmt = conn.prepareStatement("SELECT * FROM VENDEDOR WHERE NOME_VENDEDOR = ? and senha = ? ");
+			stmt.setString(1, nome);
+			stmt.setString(2, senha);
+
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				return true;
+
+			}
+
 			return true;
-			
-		} catch (SQLException e) {
-			
-		
-				}
-		return false;
-		
-		
-	}
-	
 
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+			return true;
+
+		}
+
+	}
+
+	public ArrayList<VendedorVO> listarTodos() {
+		String sql = "SELECT * FROM vendedor;";
+        
+        Connection conn = ConexaoBanco.getConnection();
+        PreparedStatement ps = ConexaoBanco.getPreparedStatement(conn, sql);
+        ArrayList<VendedorVO> vendedores = new ArrayList<VendedorVO>();
+        
+        try {
+            
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                VendedorVO vendedor = new VendedorVO();
+                vendedor.setCpf(rs.getString("CPFVENDEDOR"));
+                vendedor.setNome(rs.getString("NOME_VENDEDOR"));
+                vendedor.setEmail(rs.getString("email"));
+                int ID_VENDEDOR = rs.getInt("ID_VENDEDOR");
+                
+              vendedores.add(vendedor);
+            }
+            rs.close();
+            ps.close();
+            conn.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return vendedores;
+	}
+
+	public Object verificarexist(VendedorVO novoVendedor) {
+		Connection conn = ConexaoBanco.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			stmt = conn.prepareStatement("SELECT * FROM VENDEDOR WHERE cpfvendedor =? ");
+			stmt.setString(1, novoVendedor.getCpf());
+			
+
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				return false;
+
+			}else {
+				
+				return false;
+			}
+
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+			return false;
+
+		}
+	}
 }

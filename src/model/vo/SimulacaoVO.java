@@ -33,6 +33,9 @@ public class SimulacaoVO {
 		this.taxa_juros = taxa_juros;
 		this.valor_Total_Contrato = valor_Total_Contrato;
 	}
+	public String getNumero_Contrato() {
+		return numero_Contrato;
+	}
 	public String getNome_Cliente() {
 		return nome_Cliente;
 	}
