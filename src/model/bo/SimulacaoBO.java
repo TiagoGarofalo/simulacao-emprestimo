@@ -14,6 +14,10 @@ public class SimulacaoBO {
 
 	SimulacaoDAO dao = new SimulacaoDAO();
 	
+	public int  BuscarProximoId() {
+		return dao.BuscarProximoId();
+	}
+	
 	public double calcularJuros(SimulacaoVO simula) {
 		double juros = 0;
 		double jurosP = 0;

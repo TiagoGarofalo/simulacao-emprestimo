@@ -50,7 +50,7 @@ public class TelaPrincipal extends JFrame {
 		setJMenuBar(menuBar);
 
 		JMenu mnEmprestimo = new JMenu("Empr\u00E9stimo");
-		mnEmprestimo.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-documento-regular.png")));
+		//mnEmprestimo.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-documento-regular.png")));
 		menuBar.add(mnEmprestimo);
 
 		JMenuItem mntmSimular = new JMenuItem("Simular");
@@ -65,7 +65,7 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		mntmSimular.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
-		mntmSimular.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-confian\u00E7a.png")));
+		//mntmSimular.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-confian\u00E7a.png")));
 		mnEmprestimo.add(mntmSimular);
 
 		JMenuItem mntmPesquisar = new JMenuItem("Pesquisar");
@@ -78,12 +78,12 @@ public class TelaPrincipal extends JFrame {
 
 			}
 		});
-		mntmPesquisar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/lupa.png")));
+		//mntmPesquisar.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/lupa.png")));
 		mntmPesquisar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0));
 		mnEmprestimo.add(mntmPesquisar);
 
 		JMenu mnCadastrarVendedor = new JMenu("Cadastrar Vendedor");
-		mnCadastrarVendedor.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-usu\u00E1rio.png")));
+		//mnCadastrarVendedor.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-usu\u00E1rio.png")));
 		menuBar.add(mnCadastrarVendedor);
 
 		JMenuItem mntmCadastrarVendedor = new JMenuItem("Cadastrar Vendedor");
@@ -96,12 +96,11 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 
-		mntmCadastrarVendedor.setIcon(
-				new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-adicionar-usu\u00E1rio-masculino.png")));
+		//mntmCadastrarVendedor.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-adicionar-usu\u00E1rio-masculino.png")));
 		mnCadastrarVendedor.add(mntmCadastrarVendedor);
 
 		JMenu mnSobre = new JMenu("sobre");
-		mnSobre.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-card\u00E1pio.png")));
+		//mnSobre.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-card\u00E1pio.png")));
 		menuBar.add(mnSobre);
 
 		JMenuItem mntmTaxasDeJuros = new JMenuItem("Taxas de juros");
@@ -111,8 +110,7 @@ public class TelaPrincipal extends JFrame {
 				setContentPane(juros);
 			}
 		});
-		mntmTaxasDeJuros
-				.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-gr\u00E1fico-combinado.png")));
+		//mntmTaxasDeJuros.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-gr\u00E1fico-combinado.png")));
 		mnSobre.add(mntmTaxasDeJuros);
 
 		JMenuItem mntmSoftware = new JMenuItem("Software");
@@ -122,15 +120,15 @@ public class TelaPrincipal extends JFrame {
 				setContentPane(sobre);
 			}
 		});
-		mntmSoftware.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-molho-de-chaves.png")));
+		//mntmSoftware.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/icons8-molho-de-chaves.png")));
 		mnSobre.add(mntmSoftware);
 
 		JMenu mnLogout = new JMenu("Logout");
-		mnLogout.setSelectedIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/image/Abort.png")));
+		//mnLogout.setSelectedIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/image/Abort.png")));
 		menuBar.add(mnLogout);
 
 		JMenuItem mntmSair = new JMenuItem("Sair");
-		mntmSair.setSelectedIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/image/Alert.png")));
+		//mntmSair.setSelectedIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/image/Alert.png")));
 		mntmSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TelaLogin tela = new TelaLogin();

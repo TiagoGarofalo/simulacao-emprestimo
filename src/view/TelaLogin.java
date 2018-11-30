@@ -27,7 +27,7 @@ public class TelaLogin extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtLogin;
 	VendedorVO vendedor = new VendedorVO();
-	private JTextField txtsenha;
+	private JPasswordField passwordLogin;
 	/**
 	 * Launch the application.
 	 */
@@ -50,6 +50,7 @@ public class TelaLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaLogin() {
+		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -75,7 +76,7 @@ public class TelaLogin extends JFrame {
 		txtLogin.setBounds(124, 90, 167, 20);
 		contentPane.add(txtLogin);
 		txtLogin.setColumns(10);
-
+		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.setSelectedIcon(new ImageIcon(TelaLogin.class.getResource("/icones/icons8-\u00E0-esquerda-dentro-de-um-c\u00EDrculo.png")));
 		btnLogin.addActionListener(new ActionListener() {
@@ -86,7 +87,7 @@ public class TelaLogin extends JFrame {
 					
 					VendedorDAO dao = new VendedorDAO();
 					
-					if (dao.fazerLogin(txtLogin.getText(),txtsenha.getText())== true) {
+					if (dao.fazerLogin(txtLogin.getText(),String.valueOf(passwordLogin.getPassword()))== true) {
 						TelaPrincipal inicio = new TelaPrincipal();
 						inicio.setExtendedState(JFrame.MAXIMIZED_BOTH);
 						inicio.setVisible(true);
@@ -103,10 +104,16 @@ public class TelaLogin extends JFrame {
 		btnLogin.setBounds(151, 163, 108, 52);
 		contentPane.add(btnLogin);
 		
-		txtsenha = new JTextField();
-		txtsenha.setBounds(124, 132, 167, 20);
-		contentPane.add(txtsenha);
-		txtsenha.setColumns(10);
+		passwordLogin = new JPasswordField();
+		passwordLogin.setBounds(124, 132, 167, 20);
+		contentPane.add(passwordLogin);
 		contentPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{lblLogin, lblSenha, txtLogin, btnLogin}));
+		
+		/*txtsenha = new JTextField();
+		txtsenha.setBounds(124, 230, 167, 20);
+		contentPane.add(txtsenha);
+		txtsenha.setColumns(10);*/
+		
+		
 	}
 }

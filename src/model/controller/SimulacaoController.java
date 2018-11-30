@@ -34,5 +34,9 @@ public class SimulacaoController {
 		return bo.salvarSimulacao(s,c,contrato);
 
 	}
+	
+	public int  BuscarProximoId() {
+		return bo.BuscarProximoId();
+	}
 
 }

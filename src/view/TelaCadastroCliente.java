@@ -66,8 +66,7 @@ public class TelaCadastroCliente extends JFrame {
 		ClienteController clienteControler = new ClienteController();
 		
 		setTitle("Tela de Cadastro de usu\u00E1rio");
-		setIconImage(Toolkit.getDefaultToolkit()
-				.getImage(TelaCadastroCliente.class.getResource("/icones/icons8-usu\u00E1rio.png")));
+		//setIconImage(Toolkit.getDefaultToolkit().getImage(TelaCadastroCliente.class.getResource("/icones/icons8-usu\u00E1rio.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 603, 421);
 		contentPane = new JPanel();

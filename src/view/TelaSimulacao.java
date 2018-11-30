@@ -133,11 +133,7 @@ public class TelaSimulacao extends JPanel {
 		// contentPane.add(lbInserirNumCont);
 		add(lbInserirNumCont);
 
-		Date numCont = new Date();
-		SimpleDateFormat formatNum = new SimpleDateFormat("yyyyMMdd");
-		int acumulador = 0;
-		String.format("%05d", acumulador);
-		lbInserirNumCont.setText(formatNum.format(numCont) + String.format("%06d", acumulador));
+		getNumeroContrato();
 
 		lbInserirValorParcela = new JLabel("");
 		lbInserirValorParcela.setBounds(98, 250, 89, 14);
@@ -263,8 +259,8 @@ public class TelaSimulacao extends JPanel {
 					simulaControl.salvarSimula(construirSimulacao2(), cliente, contrato);
 
 					JOptionPane.showMessageDialog(null, "Salvo com sucesso");
-					int acumula= 0;
-						acumula++;
+
+					getNumeroContrato();
 						
 
 					// } catch (Exception e) {
@@ -314,6 +310,14 @@ public class TelaSimulacao extends JPanel {
 		btnNewButton.setBounds(273, 78, 187, 55);
 		add(btnNewButton);
 
+	}
+
+	private void getNumeroContrato() {
+		Date numCont = new Date();
+		SimpleDateFormat formatNum = new SimpleDateFormat("yyyyMMdd");
+		int acumulador = simulaControl.BuscarProximoId();
+		String.format("%05d", acumulador);
+		lbInserirNumCont.setText(formatNum.format(numCont) + String.format("%06d", acumulador));
 	}
 
 	protected String validarCampos() {

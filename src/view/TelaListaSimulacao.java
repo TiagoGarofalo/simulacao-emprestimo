@@ -120,7 +120,7 @@ public class TelaListaSimulacao extends JPanel {
 		tblSimulacao.getColumnModel().getColumn(0).setPreferredWidth(104);
 		tblSimulacao.getColumnModel().getColumn(1).setPreferredWidth(163);
 		tblSimulacao.getColumnModel().getColumn(2).setPreferredWidth(123);
-		tblSimulacao.getColumnModel().getColumn(4).setPreferredWidth(78);
+		tblSimulacao.getColumnModel().getColumn(3).setPreferredWidth(78);
 		tblSimulacao.setBounds(10, 105, 474, 213);
 		add(tblSimulacao);
 

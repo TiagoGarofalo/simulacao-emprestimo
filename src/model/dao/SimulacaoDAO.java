@@ -158,10 +158,44 @@ public class SimulacaoDAO {
 
 	public ArrayList<SimulacaoVO> listarPorNumContCpf(Long numContrato, String cpfCliente) {
 		
-
+		String query = "select * from simulacao T0 inner join cliente T1 on T1.ID_CLIENTE=T0.ID_CLIENTE where 1=1";
+		
+		if(numContrato>0) {
+			query+="and T0.NUMERO_CONTRATO = ?";
+		}
+		
+		//TODO verificar se string nao eh nulo
+		if(numContrato>0) {
+			query+="and T1.CPFCLIENTE=?";
+		}
 		
 		return null;
 	}
+	
+	public int BuscarProximoId() {
+		int id=0;
+		String sql = "SELECT ifnull(max(ID_SIMULACAO),0) + 1 as 'next' FROM SIMULACAO";
+        
+        Connection conn = ConexaoBanco.getConnection();
+        PreparedStatement ps = ConexaoBanco.getPreparedStatement(conn, sql);
+        
+        try {
+            
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                id =rs.getInt("next");
+            }
+            rs.close();
+            ps.close();
+            conn.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return id;
+	}
+
 	
 	/*public ArrayList<Simulacao> listarTodos(){
 		String sql = " SELECT * FROM SIMULACAO ";

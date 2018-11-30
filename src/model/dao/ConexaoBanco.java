@@ -13,7 +13,7 @@ public class ConexaoBanco {
 	private static final String NOME_ESQUEMA = "SIMULAEMPRESTIMO";
 	private static final String URL_CONEXAO = "jdbc:mysql://localhost:3306/" + NOME_ESQUEMA;
 	private static final String USUARIO = "root";
-	private static final String SENHA = "admin";
+	private static final String SENHA = "";
 
 	/**
 	 * Estabelece a conexão JBDC considerando as configurações da classe Banco.
