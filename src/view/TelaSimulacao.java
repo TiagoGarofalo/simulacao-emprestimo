@@ -53,6 +53,7 @@ public class TelaSimulacao extends JPanel {
 	SimulacaoController simulaControl = new SimulacaoController();
 	private List<ClienteVO> ListarTodosClientes;
 	VendedorVO vendedor = new VendedorVO();
+	ClienteVO cliente = new ClienteVO();
 
 	ContratoController contratoControler = new ContratoController();
 	ContratoVO contrato = new ContratoVO();
@@ -106,7 +107,7 @@ public class TelaSimulacao extends JPanel {
 		add(txCPF);
 		txCPF.setColumns(10);
 
-		JLabel lbValorCont = new JLabel("Valor Contrato:");
+		JLabel lbValorCont = new JLabel("Valor Contrato: R$");
 		lbValorCont.setBounds(8, 194, 105, 14);
 		// contentPane.add(lbValorCont);
 		add(lbValorCont);
@@ -136,7 +137,7 @@ public class TelaSimulacao extends JPanel {
 		getNumeroContrato();
 
 		lbInserirValorParcela = new JLabel("");
-		lbInserirValorParcela.setBounds(98, 250, 89, 14);
+		lbInserirValorParcela.setBounds(110, 250, 89, 14);
 		// contentPane.add(lbInserirValorParcela);
 		add(lbInserirValorParcela);
 
@@ -150,7 +151,7 @@ public class TelaSimulacao extends JPanel {
 		lbInserirDtSimulacao.setText("28/11/2018");
 
 		lbInserirDtValidade = new JLabel("Validade Simula\u00E7\u00E3o: ");
-		lbInserirDtValidade.setBounds(475, 11, 61, 14);
+		lbInserirDtValidade.setBounds(475, 11, 75, 14);
 		// contentPane.add(lbInserirDtValidade);
 		add(lbInserirDtValidade);
 
@@ -180,7 +181,7 @@ public class TelaSimulacao extends JPanel {
 					double juros = simulaControl.calculaJuros(novaSimula);
 					lblValorJuros.setText(juros + "");
 					double valorP = simulaControl.calculaValorParc(novaSimula);
-					// DecimalFormat numf = new DecimalFormat("##.###,##");
+					//DecimalFormat numf = new DecimalFormat("#.###,##");
 					lbInserirValorParcela.setText(valorP + "");
 
 					JOptionPane.showMessageDialog(null,
@@ -230,7 +231,7 @@ public class TelaSimulacao extends JPanel {
 		// contentPane.add(separator_1);
 		add(separator_1);
 
-		JLabel lblNewLabel = new JLabel("Dados usu\u00E1rio:");
+		JLabel lblNewLabel = new JLabel("Dados cliente:");
 		lblNewLabel.setBounds(8, 40, 105, 14);
 		// contentPane.add(lblNewLabel);
 		add(lblNewLabel);
@@ -255,6 +256,7 @@ public class TelaSimulacao extends JPanel {
 					contratoControler.salvarContrato(contrato);
 					ClienteVO cliente = new ClienteVO();
 					cliente.setNome(txNome.getText());
+					cliente.setCpf(txCPF.getText());
 
 					simulaControl.salvarSimula(construirSimulacao2(), cliente, contrato);
 
@@ -276,15 +278,15 @@ public class TelaSimulacao extends JPanel {
 		add(btnGravar);
 
 		lblValorJuros = new JLabel("");
-		lblValorJuros.setBounds(66, 276, 89, 14);
+		lblValorJuros.setBounds(52, 276, 18, 14);
 		add(lblValorJuros);
 
 		JLabel lblJuros = new JLabel("Juros:");
-		lblJuros.setBounds(10, 276, 46, 14);
+		lblJuros.setBounds(10, 276, 40, 14);
 		add(lblJuros);
 
-		JLabel lblValorParcela = new JLabel("Valor Parcela:");
-		lblValorParcela.setBounds(8, 250, 89, 14);
+		JLabel lblValorParcela = new JLabel("Valor Parcela: R$");
+		lblValorParcela.setBounds(8, 250, 100, 14);
 		add(lblValorParcela);
 
 		JLabel lblNContrato = new JLabel("N\u00BA Contrato :");
@@ -302,13 +304,45 @@ public class TelaSimulacao extends JPanel {
 		JButton btnNewButton = new JButton("Cadastrar Cliente");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroCliente telaCliente = new TelaCadastroCliente();
-				telaCliente.setVisible(true);
+				
+				if (clienteControler.ValidaCPF(txCPF.getText()) == true) {
+					try {
+						
+						cliente.setNome(txNome.getText());
+						cliente.setEmail(txEmail.getText());
+						cliente.setCpf(txCPF.getText());
+						String cpf = txCPF.getText();
+					
+							clienteControler.salvar(cliente);
+						
+						
+						//List<ClienteVO> clientes = clienteControler.ListarTodosClientes();
+						//atualizarTabelaClientes(clientes);
+						
+						
+						JOptionPane.showMessageDialog(null,"Salvo com sucesso");
+						
+					} catch (Exception e2) {
+						
+						JOptionPane.showMessageDialog(null,"Erro ao salvar"+ e2);
+					}
+				} else {
+					JOptionPane.showMessageDialog(null,"Erro ao salvar, CPF invalido");
+				}
+				
+					
+				
+				/*TelaCadastroCliente telaCliente = new TelaCadastroCliente();
+				telaCliente.setVisible(true);*/
 
 			}
 		});
 		btnNewButton.setBounds(273, 78, 187, 55);
 		add(btnNewButton);
+		
+		JLabel label = new JLabel("%");
+		label.setBounds(72, 276, 17, 14);
+		add(label);
 
 	}
 
@@ -399,6 +433,7 @@ public class TelaSimulacao extends JPanel {
 		novaSimula.setNum_parcelas(Double.parseDouble(txParcelas.getText()));
 		novaSimula.setValor_contrato(Double.parseDouble(txValorCont.getText()));
 		novaSimula.setNome_Cliente(txNome.getText());
+		novaSimula.setCpf_cliente(txCPF.getText());
 		// novaSimula.setNome_Vendedor(vendedor.getNome());
 		novaSimula.setNumero_Contrato(lbInserirNumCont.getText());
 		novaSimula.setValor_parcela(Double.parseDouble(lbInserirValorParcela.getText()));

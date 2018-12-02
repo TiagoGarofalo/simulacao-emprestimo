@@ -24,7 +24,7 @@ public class SimulacaoController {
 		return bo.calcularValorParcelas(simula);
 	}
 
-	public List<SimulacaoVO> listarContratos(Long numContrato, String cpfCliente) {
+	public List<SimulacaoVO> listarContratos(String numContrato, String cpfCliente) {
 
 		return bo.listarSimulacoes(numContrato, cpfCliente);
 	}

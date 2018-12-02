@@ -25,7 +25,7 @@ public class SimulacaoDAO {
 				
 		
 		
-	        String sql = " INSERT INTO SIMULACAO (nome_cliente,numero_contrato,valor_parcela,num_parcelas,valor_contrato,taxa_juros,valo_total_contrato) VALUES (?,?,?,?,?,?,?)";
+	        String sql = " INSERT INTO SIMULACAO (nome_cliente,numero_contrato,valor_parcela,num_parcelas,valor_contrato,taxa_juros,valo_total_contrato,cpf_cliente) VALUES (?,?,?,?,?,?,?,?)";
 	        Connection conexao = ConexaoBanco.getConnection();
 			PreparedStatement prepStmt = ConexaoBanco.getPreparedStatement(conexao, sql);
 			try {
@@ -39,6 +39,8 @@ public class SimulacaoDAO {
 				prepStmt.setDouble(5, simulacao.getValor_contrato());
 				prepStmt.setDouble(6, simulacao.getTaxa_juros());
 				prepStmt.setDouble(7, simulacao.getValor_Total_Contrato());
+				prepStmt.setString(8, cliente.getCpf());
+				
 				
 						
 				//TODO preencher o restante
@@ -156,20 +158,49 @@ public class SimulacaoDAO {
 		return sucessoDelete;
 	}
 
-	public ArrayList<SimulacaoVO> listarPorNumContCpf(Long numContrato, String cpfCliente) {
+	public ArrayList<SimulacaoVO> listarPorNumContCpf(String numContrato, String cpfCliente) {
 		
-		String query = "select * from simulacao T0 inner join cliente T1 on T1.ID_CLIENTE=T0.ID_CLIENTE where 1=1";
+		String query = " SELECT * FROM SIMULACAO WHERE NUMERO_CONTRATO = ? ";
 		
-		if(numContrato>0) {
+		/*String query = ("select * from simulacao T0 inner join cliente T1 on T1.CPF_CLIENTE=T0.CPF_CLIENTE "
+				+ "where (T0.ID_CONTRATO = IFNULL("+ numContrato +", ' ') OR IFNULL("+ numContrato +", ' ') = ' ') AND "
+				+ "(T1.CPF_CLIENTE = IFNULL("+ cpfCliente +",' ') OR IFNULL("+ cpfCliente +",' ')=' ')");*/
+		
+		Connection conexao = ConexaoBanco.getConnection();
+		PreparedStatement prepStmt = ConexaoBanco.getPreparedStatement(conexao, query);
+		ArrayList<SimulacaoVO> simulacoes = new ArrayList<SimulacaoVO>();
+		
+		try {
+			prepStmt.setString(1, numContrato);
+			ResultSet result = prepStmt.executeQuery();
+			
+			while(result.next()){
+				SimulacaoVO s = new SimulacaoVO();
+				
+				//Obtendo valores pelo NOME DA COLUNA
+			
+						
+				s.setNumero_Contrato(result.getString("NUMERO_CONTRATO"));
+				s.setNome_Cliente(result.getString("NOME_CLIENTE"));
+				s.setCpf_cliente(result.getString("CPF_CLIENTE"));
+				s.setValor_contrato(result.getDouble("VALOR_CONTRATO"));
+				s.setNum_parcelas(result.getInt("NUM_PARCELAS"));
+				simulacoes.add(s);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		/*if(numContrato!=null) {
 			query+="and T0.NUMERO_CONTRATO = ?";
 		}
 		
 		//TODO verificar se string nao eh nulo
-		if(numContrato>0) {
-			query+="and T1.CPFCLIENTE=?";
-		}
+		if(cpfCliente!=null) {
+			query+="and T1.CPF_CLIENTE = ?";
+		}*/
 		
-		return null;
+		return simulacoes;
 	}
 	
 	public int BuscarProximoId() {

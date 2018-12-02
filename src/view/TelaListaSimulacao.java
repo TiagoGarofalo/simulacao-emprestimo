@@ -30,7 +30,7 @@ public class TelaListaSimulacao extends JPanel {
 	private JPanel contentPane;
 	private JTable table;
 	private JTable tblSimulacao;
-	private JTextField tfNome;
+	private JTextField tfNumCont;
 	private JTextField tfCpf;
 
 	//Esta lista de produtos È atualizada a cada nova consulta realizada com os filtros.
@@ -75,7 +75,7 @@ public class TelaListaSimulacao extends JPanel {
 				boolean temFiltro = false;
 
 				// TODO pegar da tela os valores dos filtros
-				Long numContrato = Long.valueOf(tfNome.getText());
+				String numContrato = String.valueOf(tfNumCont.getText());
 				String cpfCliente = tfCpf.getText();
 				List<SimulacaoVO> simulacoes = controlador.listarContratos(numContrato, cpfCliente);
 
@@ -115,12 +115,19 @@ public class TelaListaSimulacao extends JPanel {
 
 		tblSimulacao = new JTable();
 		tblSimulacao
-				.setModel(new DefaultTableModel(new Object[][] { {"Contrato", "Nome", "Valor", "num Parcelas"  }, },
-						new String[] { "Contrato", "Nome", "Valor", "num Parcelas"  }));
-		tblSimulacao.getColumnModel().getColumn(0).setPreferredWidth(104);
-		tblSimulacao.getColumnModel().getColumn(1).setPreferredWidth(163);
-		tblSimulacao.getColumnModel().getColumn(2).setPreferredWidth(123);
-		tblSimulacao.getColumnModel().getColumn(3).setPreferredWidth(78);
+				.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"Contrato", "Nome", "CPF", "Valor", "num Parcelas"},
+			},
+			new String[] {
+				"Contrato", "Nome", "CPF", "Valor", "num Parcelas"
+			}
+		));
+		tblSimulacao.getColumnModel().getColumn(0).setPreferredWidth(110);
+		tblSimulacao.getColumnModel().getColumn(1).setPreferredWidth(174);
+		tblSimulacao.getColumnModel().getColumn(2).setPreferredWidth(109);
+		tblSimulacao.getColumnModel().getColumn(3).setPreferredWidth(89);
+		tblSimulacao.getColumnModel().getColumn(4).setPreferredWidth(78);
 		tblSimulacao.setBounds(10, 105, 474, 213);
 		add(tblSimulacao);
 
@@ -128,10 +135,10 @@ public class TelaListaSimulacao extends JPanel {
 		lbCPF.setBounds(273, 40, 30, 14);
 		add(lbCPF);
 
-		tfNome = new JTextField();
-		tfNome.setBounds(85, 37, 178, 20);
-		add(tfNome);
-		tfNome.setColumns(10);
+		tfNumCont = new JTextField();
+		tfNumCont.setBounds(85, 37, 178, 20);
+		add(tfNumCont);
+		tfNumCont.setColumns(10);
 
 		tfCpf = new JTextField();
 		tfCpf.setBounds(303, 37, 181, 20);
@@ -175,7 +182,7 @@ public class TelaListaSimulacao extends JPanel {
 	protected void atualizarTabelaSimulacoes(List<SimulacaoVO> simulacoes) {
 		// Limpa a tabela
 		tblSimulacao.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Contrato", "Nome", "Valor", "num Parcelas" }));
+				new String[] { "Contrato", "Nome", "CPF", "Valor", "num Parcelas" }));
 
 		DefaultTableModel modelo = (DefaultTableModel) tblSimulacao.getModel();
 
@@ -183,8 +190,9 @@ public class TelaListaSimulacao extends JPanel {
 			// Crio uma nova linha na tabela
 			// Preencher a linha com os atributos do contrato
 			// na ORDEM do cabe√ßalho da tabela
+			
 			Object[] novaLinha = new Object[] { simula.getNumero_Contrato(), simula.getNome_Cliente(),
-					simula.getValor_contrato(), simula.getNum_parcelas() };
+					simula.getCpf_cliente(), simula.getValor_contrato(), simula.getNum_parcelas() };
 			modelo.addRow(novaLinha);
 		}
 

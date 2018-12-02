@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import model.vo.ClienteVO;
 
 
@@ -32,17 +34,17 @@ public class ClienteDAO {
 		return false;
 	}
 
-	private boolean update(ClienteVO cliente) {
+	public boolean update(ClienteVO cliente) {
 	
 		try {
 			Connection conn = ConexaoBanco.getConnection();
-			String sql ="UPDATE cliente SET nome = ?, email= ? WHERE id_cliente= ?";
+			String sql ="UPDATE cliente SET nome = ?, email= ? WHERE CPFCLIENTE= ?";
 			
 			PreparedStatement ps = ConexaoBanco.getPreparedStatement(conn, sql);
 			
 			ps.setString(1, cliente.getNome());
 			ps.setString(2, cliente.getEmail());
-			ps.setInt(3, cliente.getId());
+			ps.setString(3, cliente.getCpf());
 
 			ps.execute();
 
@@ -56,15 +58,15 @@ public class ClienteDAO {
 		return false;
 	}
 
-	public boolean salvar(ClienteVO cliente) {
-		if (cliente.getId() != 0) {
+	/*public boolean salvar(ClienteVO cliente) {
+		if (cliente.getCpf() == cliente.getCpf()) {
 
 			return update(cliente);
 
 		} else {
 			return insert(cliente);
 		}
-	}
+	}*/
 
 	public boolean delete(String cpf) {
 		try {
@@ -117,6 +119,34 @@ public class ClienteDAO {
         }
         return clientes;
     }
+	
+	public boolean  verificaCfp(String cpf) {
+		
+		String sql = "SELECT COUNT(*) FROM CLIENTE WHERE CPFCLIENTE = ?";
+		boolean cpfJaCadastrado = false;
+		
+		Connection conn = ConexaoBanco.getConnection();
+		PreparedStatement stmt = ConexaoBanco.getPreparedStatement(conn, sql);
+		ResultSet resultado = null;
+		try{
+			stmt.setString(1, cpf);
+			resultado = stmt.executeQuery();
+			while(resultado.next()){
+				int quantidadeRegistros = resultado.getInt(1);
+				cpfJaCadastrado = (quantidadeRegistros > 0);
+			}
+		} catch (SQLException e){
+			JOptionPane.showMessageDialog(null, "Erro ao consultar o CPF = " + cpf);
+		} finally {
+			ConexaoBanco.closeResultSet(resultado);
+			ConexaoBanco.closeStatement(stmt);
+			ConexaoBanco.closeConnection(conn);
+		}
+		return cpfJaCadastrado;
+	}
+
+	
+	
 	/**public ClienteVO buscarPorcpf(int idcliente) {
         Connection conn = ConnectionManager.getConnection();
        ClienteVO listacliente = null;

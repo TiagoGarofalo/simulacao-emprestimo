@@ -5,32 +5,42 @@ import java.util.List;
 import model.bo.ClienteBO;
 import model.vo.ClienteVO;
 
-
-
 public class ClienteController {
-	
-	
-	
-	public boolean salvar (ClienteVO cliente) {
+
+	public boolean salvar(ClienteVO cliente) {
 		ClienteBO bo = new ClienteBO();
-		
-		return bo.salvar(cliente); 
-		
+
+		return bo.salvar(cliente);
+
 	}
 
 	public void deletar(String cpf) {
-	
+
 		ClienteBO bo = new ClienteBO();
 		bo.excluir(cpf);
-	
+
 	}
 
 	public boolean ValidaCPF(String cpf) {
 		ClienteBO bo = new ClienteBO();
-				return bo.isCPF(cpf);
+		return bo.isCPF(cpf);
 	}
-	public List<ClienteVO> ListarTodosClientes (){
+
+	public List<ClienteVO> ListarTodosClientes() {
 		ClienteBO bo = new ClienteBO();
 		return bo.ListarTodos();
-				}
+	}
+
+	public boolean verificaCpf(String cpf) {
+		ClienteBO bo = new ClienteBO();
+		return bo.verificaCpf(cpf);
+	}
+
+	public boolean update(ClienteVO cliente) {
+		ClienteBO bo = new ClienteBO();
+
+		return bo.update(cliente);
+
+	}
+
 }

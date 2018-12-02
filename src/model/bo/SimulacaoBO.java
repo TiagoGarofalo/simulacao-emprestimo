@@ -108,7 +108,7 @@ public class SimulacaoBO {
 		}
 	}
 
-	public List<SimulacaoVO> listarSimulacoes(Long numContrato, String cpfCliente) {
+	public List<SimulacaoVO> listarSimulacoes(String numContrato, String cpfCliente) {
 		
 		ArrayList<SimulacaoVO> simula = dao.listarPorNumContCpf(numContrato, cpfCliente);
 		
