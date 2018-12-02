@@ -1,38 +1,30 @@
 package view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.InputMismatchException;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-import javax.swing.text.MaskFormatter;
 
-import model.bo.SimulacaoBO;
 import model.controller.ClienteController;
 import model.controller.ContratoController;
 import model.controller.SimulacaoController;
-import model.dao.SimulacaoDAO;
 import model.vo.ClienteVO;
 import model.vo.ContratoVO;
 import model.vo.SimulacaoVO;
 import model.vo.VendedorVO;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class TelaSimulacao extends JPanel {
 
@@ -148,18 +140,19 @@ public class TelaSimulacao extends JPanel {
 
 		Date dataSimulacao = new Date();
 		SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yy");
-		lbInserirDtSimulacao.setText("28/11/2018");
+		lbInserirDtSimulacao.setText(formatDate.format(dataSimulacao));
 
 		lbInserirDtValidade = new JLabel("Validade Simula\u00E7\u00E3o: ");
 		lbInserirDtValidade.setBounds(475, 11, 75, 14);
 		// contentPane.add(lbInserirDtValidade);
 		add(lbInserirDtValidade);
 
-		SimpleDateFormat formatValidade = new SimpleDateFormat("dd/MM/yy");
-		GregorianCalendar dataValidade = new GregorianCalendar();
-		dataValidade.add(Calendar.DAY_OF_MONTH, 30);
-		Date dataV = dataValidade.getTime();
-		lbInserirDtValidade.setText("28/11/2018");
+		Date trintaDiasPosHoje = new Date();
+		Calendar c = Calendar.getInstance();
+		c.setTime(trintaDiasPosHoje);
+		c.add(Calendar.DATE, 30);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+		lbInserirDtValidade.setText(sdf.format(c.getTime()));
 
 		JSeparator separator = new JSeparator();
 		separator.setBounds(8, 33, 566, 2);
@@ -296,7 +289,7 @@ public class TelaSimulacao extends JPanel {
 		JLabel lbldatainicio = new JLabel("Data Inicial :");
 		lbldatainicio.setBounds(220, 11, 68, 14);
 		add(lbldatainicio);
-
+		
 		JLabel lblDataFinal = new JLabel("Data Final : ");
 		lblDataFinal.setBounds(407, 11, 82, 14);
 		add(lblDataFinal);
@@ -439,7 +432,10 @@ public class TelaSimulacao extends JPanel {
 		novaSimula.setValor_parcela(Double.parseDouble(lbInserirValorParcela.getText()));
 		novaSimula.setTaxa_juros(Double.parseDouble(lblValorJuros.getText()));
 		novaSimula.setValor_Total_Contrato(Double.parseDouble(txValorCont.getText()));
-
+		novaSimula.setContratado("Não");
+		novaSimula.setDt_inicio(lbInserirDtSimulacao.getText());
+		novaSimula.setDt_final((lbInserirDtValidade.getText()));
+		
 		return novaSimula;
 	}
 }

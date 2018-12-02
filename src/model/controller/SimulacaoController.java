@@ -39,4 +39,8 @@ public class SimulacaoController {
 		return bo.BuscarProximoId();
 	}
 
+	public void contrataEmprestimo(String numContrato) {
+		bo.contrataEmprestimo(numContrato);
+	}
+
 }

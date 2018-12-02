@@ -3,6 +3,8 @@ package view;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -16,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import model.bo.GeradorPlanilha;
 import model.controller.ClienteController;
 import model.controller.SimulacaoController;
 import model.vo.SimulacaoVO;
@@ -56,6 +59,7 @@ public class TelaListaSimulacao extends JPanel {
 	/**
 	 * Create the frame.
 	 */
+	List<SimulacaoVO> simulacoes = new ArrayList<>();
 	public TelaListaSimulacao() {
 
 		setBounds(100, 100, 494, 329);
@@ -72,12 +76,10 @@ public class TelaListaSimulacao extends JPanel {
 
 				SimulacaoController controlador = new SimulacaoController();
 
-				boolean temFiltro = false;
-
 				// TODO pegar da tela os valores dos filtros
 				String numContrato = String.valueOf(tfNumCont.getText());
 				String cpfCliente = tfCpf.getText();
-				List<SimulacaoVO> simulacoes = controlador.listarContratos(numContrato, cpfCliente);
+				simulacoes = controlador.listarContratos(numContrato, cpfCliente);
 
 				if (simulacoes != null) {
 					atualizarTabelaSimulacoes(simulacoes);
@@ -117,10 +119,10 @@ public class TelaListaSimulacao extends JPanel {
 		tblSimulacao
 				.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"Contrato", "Nome", "CPF", "Valor", "num Parcelas"},
+				{"Contrato", "Nome", "CPF", "Valor", "num Parcelas", "Contratado"},
 			},
 			new String[] {
-				"Contrato", "Nome", "CPF", "Valor", "num Parcelas"
+				"Contrato", "Nome", "CPF", "Valor", "num Parcelas", "Contratado"
 			}
 		));
 		tblSimulacao.getColumnModel().getColumn(0).setPreferredWidth(110);
@@ -147,10 +149,18 @@ public class TelaListaSimulacao extends JPanel {
 
 		JButton btnContratar = new JButton("Contratar");
 		btnContratar.addActionListener(new ActionListener() {
+			private SimulacaoController controller;
 			public void actionPerformed(ActionEvent e) {
-
-				// TODO acao botao contratar
-
+				int indexNumber = tblSimulacao.getSelectedRow();
+				
+				if (indexNumber > -1) {
+					if (controller == null) {
+						controller = new SimulacaoController();
+					}
+					simulacoes.get(indexNumber-1).setContratado("Sim");
+					controller.contrataEmprestimo(simulacoes.get(indexNumber-1).getNumero_Contrato());
+					atualizarTabelaSimulacoes(simulacoes);
+				}
 			}
 		});
 		btnContratar.setBounds(147, 71, 127, 23);
@@ -160,17 +170,21 @@ public class TelaListaSimulacao extends JPanel {
 		btnRelatorio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				JFileChooser jfc = new JFileChooser();
-				jfc.setDialogTitle("Salvar relatório como...");
-				
-				int resultado = jfc.showSaveDialog(null);
-				if(resultado == JFileChooser.APPROVE_OPTION){
-					String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
+//				JFileChooser jfc = new JFileChooser();
+//				jfc.setDialogTitle("Salvar relatório como...");
+//				
+//				int resultado = jfc.showSaveDialog(null);
+//				if(resultado == JFileChooser.APPROVE_OPTION){
+//					String caminhoEscolhido = jfc.getSelectedFile().getAbsolutePath();
+					GeradorPlanilha gerador = new GeradorPlanilha();
+					try {
+						gerador.gerarPlanilhaProdutos(simulacoes, "contratos");
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					}
 					
-					ClienteController control = new ClienteController();
-			
-					//control.gerarRelatorio(simulacoesConsultadas, caminhoEscolhido, ClienteController.TIPO_RELATORIO_XLS);
-				}
+					
+//				}
 				
 			}
 		});
@@ -181,8 +195,11 @@ public class TelaListaSimulacao extends JPanel {
 
 	protected void atualizarTabelaSimulacoes(List<SimulacaoVO> simulacoes) {
 		// Limpa a tabela
-		tblSimulacao.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Contrato", "Nome", "CPF", "Valor", "num Parcelas" }));
+		Object[][] header = new Object[][] {new String[] { "Contrato", "Nome", "CPF", "Valor", "num Parcelas", "Contratado" }};
+		String[] registros = new String[] { "Contrato", "Nome", "CPF", "Valor", "num Parcelas", "Contratado" };
+		
+		tblSimulacao.setModel(new DefaultTableModel(header,
+				registros));
 
 		DefaultTableModel modelo = (DefaultTableModel) tblSimulacao.getModel();
 
@@ -192,7 +209,7 @@ public class TelaListaSimulacao extends JPanel {
 			// na ORDEM do cabeÃ§alho da tabela
 			
 			Object[] novaLinha = new Object[] { simula.getNumero_Contrato(), simula.getNome_Cliente(),
-					simula.getCpf_cliente(), simula.getValor_contrato(), simula.getNum_parcelas() };
+					simula.getCpf_cliente(), simula.getValor_contrato(), simula.getNum_parcelas(), simula.getContratado() };
 			modelo.addRow(novaLinha);
 		}
 

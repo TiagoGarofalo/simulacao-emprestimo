@@ -119,5 +119,9 @@ public class SimulacaoBO {
 		
 		return dao.inserir(s,c,contrato);
 	}
+
+	public void contrataEmprestimo(String numContrato) {
+		dao.contrataEmprestimo(numContrato);
+	}
 	
 }

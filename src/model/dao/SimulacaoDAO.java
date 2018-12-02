@@ -25,23 +25,22 @@ public class SimulacaoDAO {
 				
 		
 		
-	        String sql = " INSERT INTO SIMULACAO (nome_cliente,numero_contrato,valor_parcela,num_parcelas,valor_contrato,taxa_juros,valo_total_contrato,cpf_cliente) VALUES (?,?,?,?,?,?,?,?)";
+	        String sql = " INSERT INTO SIMULACAO (nome_cliente,numero_contrato,valor_parcela,num_parcelas,valor_contrato,taxa_juros,valo_total_contrato,cpf_cliente, contratado, DT_INICIO, DT_FINAL) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	        Connection conexao = ConexaoBanco.getConnection();
 			PreparedStatement prepStmt = ConexaoBanco.getPreparedStatement(conexao, sql);
 			try {
 				prepStmt.setString(1, cliente.getNome());
 			//prepStmt.setString(2, vendedor.getNome());
 				prepStmt.setString(2, contrato.getNumContrato());
-				//prepStmt.setDate(4, new Date(simulacao.getDt_inicio().getTime()));
-				//prepStmt.setDate(5, new Date(simulacao.getDt_final().getTime()));
 				prepStmt.setDouble(3, simulacao.getValor_parcela());
 				prepStmt.setDouble(4, simulacao.getNum_parcelas());
 				prepStmt.setDouble(5, simulacao.getValor_contrato());
 				prepStmt.setDouble(6, simulacao.getTaxa_juros());
 				prepStmt.setDouble(7, simulacao.getValor_Total_Contrato());
 				prepStmt.setString(8, cliente.getCpf());
-				
-				
+				prepStmt.setString(9, simulacao.getContratado());
+				prepStmt.setString(10, simulacao.getDt_inicio());
+				prepStmt.setString(11, simulacao.getDt_final());
 						
 				//TODO preencher o restante
 		
@@ -159,8 +158,25 @@ public class SimulacaoDAO {
 	}
 
 	public ArrayList<SimulacaoVO> listarPorNumContCpf(String numContrato, String cpfCliente) {
+		String parametros = "";
 		
-		String query = " SELECT * FROM SIMULACAO WHERE NUMERO_CONTRATO = ? ";
+		if (!numContrato.isEmpty()) {
+			parametros += "NUMERO_CONTRATO = ?";
+		}
+		
+		if (!cpfCliente.isEmpty()) {
+			if (!parametros.isEmpty()) {
+				parametros += " and ";
+			}
+			parametros += "CPF_CLIENTE = ?";
+		}
+		
+		String where = "";
+		if (!parametros.isEmpty()) {
+			where += " WHERE " + parametros;
+		}
+		
+		String query = " SELECT * FROM SIMULACAO" + where;
 		
 		/*String query = ("select * from simulacao T0 inner join cliente T1 on T1.CPF_CLIENTE=T0.CPF_CLIENTE "
 				+ "where (T0.ID_CONTRATO = IFNULL("+ numContrato +", ' ') OR IFNULL("+ numContrato +", ' ') = ' ') AND "
@@ -171,7 +187,16 @@ public class SimulacaoDAO {
 		ArrayList<SimulacaoVO> simulacoes = new ArrayList<SimulacaoVO>();
 		
 		try {
-			prepStmt.setString(1, numContrato);
+			int index = 0;
+			
+			if (!numContrato.isEmpty()) {
+				index++;
+				prepStmt.setString(index, numContrato);
+			}
+			if (!cpfCliente.isEmpty()) {
+				index++;
+				prepStmt.setString(index, cpfCliente);
+			}
 			ResultSet result = prepStmt.executeQuery();
 			
 			while(result.next()){
@@ -185,6 +210,7 @@ public class SimulacaoDAO {
 				s.setCpf_cliente(result.getString("CPF_CLIENTE"));
 				s.setValor_contrato(result.getDouble("VALOR_CONTRATO"));
 				s.setNum_parcelas(result.getInt("NUM_PARCELAS"));
+				s.setContratado(result.getString("CONTRATADO"));
 				simulacoes.add(s);
 			}
 		} catch (SQLException e) {
@@ -225,6 +251,26 @@ public class SimulacaoDAO {
             ex.printStackTrace();
         }
         return id;
+	}
+
+	public void contrataEmprestimo(String numContrato) {
+		try {
+			Connection conn = ConexaoBanco.getConnection();
+			String sql ="UPDATE simulacao SET contratado = ? where numero_contrato = ?";
+			
+			PreparedStatement ps = ConexaoBanco.getPreparedStatement(conn, sql);
+			
+			ps.setString(1, "Sim");
+			ps.setString(2, numContrato);
+
+			ps.execute();
+
+			ps.close();
+			conn.close();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	
